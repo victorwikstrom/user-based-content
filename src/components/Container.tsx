@@ -10,14 +10,19 @@ const Container: React.FC<Props> = ({ children }) => {
     createStyles({
       root: {
         width: "100%",
+        height: "100vh",
         display: "flex",
         justifyContent: "center",
+        alignItems: "center",
       },
       container: {
-        border: "1px solid black",
+        backgroundColor: "#f4f4f4",
+        border: "2px solid black",
         maxWidth: "400px",
-        minHeight: "800px",
+        overflowX: "auto",
+        height: "800px",
         padding: "5px 10px",
+        borderRadius: "5px",
       },
     })
   );

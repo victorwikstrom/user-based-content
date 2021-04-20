@@ -14,12 +14,9 @@ export const theme = responsiveFontSizes(
       borderRadius: 0,
     },
     typography: {
-      fontFamily: "Poppins",
+      fontFamily: "Roboto",
       body1: {
-        fontWeight: 300,
-      },
-      h1: {
-        fontWeight: 500,
+        fontWeight: 400,
       },
     },
   })
