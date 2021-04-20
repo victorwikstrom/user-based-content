@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import Admin from "./Admin";
 import Login from "./Login";
 import Registration from "./Registration";
 import Start from "./Start";
@@ -12,7 +13,7 @@ function Router() {
         <Route path="/login" component={Login} />
         <Route path="/registration" component={Registration} />
         {/* <Route path="/edit" component={Edit} /> */}
-        {/* <Route path="/admin" component={Admin} />  */}
+        <Route path="/admin" component={Admin} />
       </Switch>
     </BrowserRouter>
   );
