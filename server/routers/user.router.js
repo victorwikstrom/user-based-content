@@ -30,7 +30,7 @@ userRouter.post("/api/users/register", async (req, res) => {
     return;
   }
 
-  const { username, password } = req.body;
+  const { username, password, role } = req.body;
 
   // Check if username is taken
   const users = await UserModel.find({});
@@ -46,6 +46,7 @@ userRouter.post("/api/users/register", async (req, res) => {
   const user = await UserModel.create({
     username: username,
     password: hashedPassword,
+    role: role,
   });
   res.status(201).json(user);
 });
