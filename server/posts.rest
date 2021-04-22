@@ -1,40 +1,37 @@
-GET http://localhost:4000/
+
+// FIND ALL
+GET http://localhost:4000/api/posts
 
 ###
 
-// CREATE POST 
+// CREATE NEW 
 POST http://localhost:4000/api/posts
 Content-Type: application/json
 
 {
-    "title": "David nm",
+    "title": "Hermans inlägg",
     "description": "blablabkla",
     "author": "Herman"
 }
 
 ###
 
-// GET ALL
-GET http://localhost:4000/api/posts
+// FIND ONE BY ID
+GET http://localhost:4000/api/posts/60813bd9d226bb1817eb6b74
 
 ###
 
-// GET SPECIFIC POST
-GET http://localhost:4000/api/posts/6081310594022c0987f61bed
-
-###
-
-// UPDATE SPECIFIC POST
+// FIND BY ID AND UPDATE
 PUT http://localhost:4000/api/posts/608133b61b75db0aaf7ae5f4
 Content-Type: application/json
 
 {
-    "title": "NEJNJE",
+    "title": "Herman",
     "description": "757687868",
     "author": "SWEDEN"
 }
 
 ###
 
-// DELETE SPECIFIC POST
+// FIND BY ID AND DELETE
 DELETE http://localhost:4000/api/posts/608133b21b75db0aaf7ae5f3
