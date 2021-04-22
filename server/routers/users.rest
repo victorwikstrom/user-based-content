@@ -2,14 +2,14 @@
 GET http://localhost:4000/api/users
 ###
 
-// CREATE NEW
-POST http://localhost:4000/api/users
+// REGISTER
+POST http://localhost:4000/api/users/register
 Content-Type: application/json
 
 {
-    "username": "Herman",
-    "password": "23456",
-    "role": "semi sheela"
+    "username": "Victor",
+    "password": "66733",
+    "role": "bhagwan"
 }
 ###
 
@@ -19,17 +19,26 @@ GET http://localhost:4000/api/users/608147d0e8f73c225477a932
 ///
 
 // FIND BY ID AND DELETE
-DELETE http://localhost:4000/api/users/608348d143e5f822bdcdd9bf
+DELETE http://localhost:4000/api/users/6081476fcd4a70223a89fb66
 ###
 ///
 
 // FIND BY ID AND UPDATE
-
 PUT http://localhost:4000/api/users/608147d0e8f73c225477a932
 Content-Type: application/json
 
 {
-    "username": "John",
-    "password": "35345",
+    "username": "Oscar",
+    "password": "36043",
     "role": "Soldier"
+}
+###
+
+// AUTHENTICATE LOGIN
+POST http://localhost:4000/api/users/login
+Content-Type: application/json
+
+{
+    "username": "Victor",
+    "password": "66733"
 }

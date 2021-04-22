@@ -1,5 +1,6 @@
 import express from "express";
 import UserModel from "../models/user.model.js";
+import bcrypt from "bcrypt";
 
 const userRouter = express.Router();
 
@@ -13,15 +14,39 @@ userRouter.get("/api/users", async (req, res) => {
   res.status(200).json(users);
 });
 
-// CREATE NEW
-userRouter.post("/api/users", async (req, res) => {
-  const user = await UserModel.create(req.body);
+// REGISTER
+userRouter.post("/api/users/register", async (req, res) => {
+  // Check if there is a logged in user
+  if (req.session.username) {
+    res.status(500).json("You need to log out before registration");
+    return;
+  }
+
+  // Check if there is a request body
   if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
     res
       .status(res.statusCode)
       .json("Error, no user data was provided in request");
     return;
   }
+
+  const { username, password } = req.body;
+
+  // Check if username is taken
+  const users = await UserModel.find({});
+  const existingUser = users.find((user) => user.username === username);
+  if (existingUser) {
+    res.status(500).json("Username is already taken");
+    return;
+  }
+
+  // Encrypt password
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  const user = await UserModel.create({
+    username: username,
+    password: hashedPassword,
+  });
   res.status(201).json(user);
 });
 
@@ -52,6 +77,24 @@ userRouter.put("/api/users/:id", async (req, res) => {
     res.status(404).json("No user was found");
     return;
   }
+  res.status(200).json(user);
+});
+
+// LOGIN
+userRouter.post("/api/users/login", async (req, res) => {
+  const { username, password } = req.body;
+
+  const users = await UserModel.find({});
+
+  const user = users.find((user) => user.username === username);
+
+  if (!user || !(await bcrypt.compare(password, user.password))) {
+    res.status(404).json("Wrong username or password");
+    return;
+  }
+
+  req.session.username = user.username;
+
   res.status(200).json(user);
 });
 
