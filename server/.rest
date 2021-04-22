@@ -1,1 +1,40 @@
 GET http://localhost:4000/
+
+###
+
+// CREATE POST 
+POST http://localhost:4000/api/posts
+Content-Type: application/json
+
+{
+    "title": "David nm",
+    "description": "blablabkla",
+    "author": "Herman"
+}
+
+###
+
+// GET ALL
+GET http://localhost:4000/api/posts
+
+###
+
+// GET SPECIFIC POST
+GET http://localhost:4000/api/posts/6081310594022c0987f61bed
+
+###
+
+// UPDATE SPECIFIC POST
+PUT http://localhost:4000/api/posts/608133b61b75db0aaf7ae5f4
+Content-Type: application/json
+
+{
+    "title": "NEJNJE",
+    "description": "757687868",
+    "author": "SWEDEN"
+}
+
+###
+
+// DELETE SPECIFIC POST
+DELETE http://localhost:4000/api/posts/608133b21b75db0aaf7ae5f3
