@@ -25,7 +25,11 @@ postRouter.post("/api/posts", async (req, res) => {
     res.status(500).json("You need to log in before you can create post");
     return;
   }
-  const post = await PostModel.create(req.body);
+
+  const post = await PostModel.create({
+    ...req.body,
+    date: new Date().toDateString(),
+  });
   res.status(200).json(post);
 });
 
