@@ -27,8 +27,6 @@ postRouter.post("/api/posts", async (req, res) => {
   }
   const post = await PostModel.create(req.body);
   res.status(200).json(post);
-
-  res.status(500).json("You need to log in before you can post");
 });
 
 // FIND BY ID AND UPDATE

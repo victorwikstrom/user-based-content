@@ -2,14 +2,14 @@
 GET http://localhost:4000/api/users
 ###
 
-// CREATE NEW
-POST http://localhost:4000/api/users
+// REGISTER
+POST http://localhost:4000/api/users/register
 Content-Type: application/json
 
 {
-    "username": "Herman",
-    "password": "23456",
-    "role": "semi sheela"
+    "username": "Victor",
+    "password": "66733",
+    "role": "bhagwan"
 }
 ###
 
@@ -28,8 +28,8 @@ PUT http://localhost:4000/api/users/608147d0e8f73c225477a932
 Content-Type: application/json
 
 {
-    "username": "John",
-    "password": "35345",
+    "username": "Oscar",
+    "password": "36043",
     "role": "Soldier"
 }
 ###
@@ -39,6 +39,6 @@ POST http://localhost:4000/api/users/login
 Content-Type: application/json
 
 {
-    "username": "John",
-    "password": "35345"
+    "username": "Victor",
+    "password": "66733"
 }

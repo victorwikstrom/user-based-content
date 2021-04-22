@@ -22,7 +22,7 @@ GET http://localhost:4000/api/posts/60813bd9d226bb1817eb6b74
 ###
 
 // FIND BY ID AND UPDATE
-PUT http://localhost:4000/api/posts/60813bd9d326bb1817eb6b74
+PUT http://localhost:4000/api/posts/60813e3ca84ba21ff0664b19
 Content-Type: application/json
 
 {
