@@ -55,4 +55,20 @@ userRouter.put("/api/users/:id", async (req, res) => {
   res.status(200).json(user);
 });
 
+// LOGIN
+userRouter.post("/api/users/login", async (req, res) => {
+  const { username, password } = req.body;
+  const users = await UserModel.find({});
+  const user = users.find(
+    (user) => user.username === username && user.password === password
+  );
+  if (!user) {
+    res.status(404).json("Wrong username or password");
+  }
+
+  req.session.username = user.username;
+
+  res.status(200).json(user);
+});
+
 export default userRouter;
