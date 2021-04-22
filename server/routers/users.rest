@@ -1,0 +1,35 @@
+// FIND ALL
+GET http://localhost:4000/api/users
+###
+
+// CREATE NEW
+POST http://localhost:4000/api/users
+Content-Type: application/json
+
+{
+    "username": "Herman",
+    "password": "23456",
+    "role": "semi sheela"
+}
+###
+
+// FIND BY ID
+GET http://localhost:4000/api/users/608147d0e8f73c225477a932
+###
+///
+
+// FIND BY ID AND DELETE
+DELETE http://localhost:4000/api/users/608348d143e5f822bdcdd9bf
+###
+///
+
+// FIND BY ID AND UPDATE
+
+PUT http://localhost:4000/api/users/608147d0e8f73c225477a932
+Content-Type: application/json
+
+{
+    "username": "John",
+    "password": "35345",
+    "role": "Soldier"
+}
