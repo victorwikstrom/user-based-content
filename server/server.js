@@ -1,10 +1,12 @@
 import express from "express";
 import mongoose from "mongoose";
+import postRouter from "./routers/post.router.js";
 
 const app = express();
 const PORT = 4000;
 
 app.use(express.json());
+app.use(postRouter);
 
 app.get("/", (req, res) => {
   res.send("Hello world");
@@ -17,7 +19,7 @@ app.use((err, req, res, next) => {
 
 (async function run() {
   try {
-    await mongoose.connect("mongodb://localhost:27017", {
+    await mongoose.connect("mongodb://localhost:27017/instaframe", {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
