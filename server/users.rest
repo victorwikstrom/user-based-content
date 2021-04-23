@@ -25,13 +25,11 @@ DELETE http://localhost:4000/api/users/60817e8b471cc81b057127f7
 ///
 
 // FIND BY ID AND UPDATE
-PUT http://localhost:4000/api/users/608147d0e8f73c225477a932
+PUT http://localhost:4000/api/users/60828d346245870d9bfba112
 Content-Type: application/json
 
 {
-    "username": "Oscar",
-    "password": "36043",
-    "role": "Soldier"
+    "role": "admin"
 }
 ###
 

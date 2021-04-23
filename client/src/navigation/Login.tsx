@@ -53,7 +53,6 @@ function Login() {
     })
       .then((res) => res.json())
       .then((result: { message: string; status: number }) => {
-        // Validate username double in backend
         if (result.status === 500) {
           setHasErr(true);
           return;

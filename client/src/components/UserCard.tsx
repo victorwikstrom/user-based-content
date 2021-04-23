@@ -1,11 +1,15 @@
-import React from "react";
+import React, { ChangeEvent, useState } from "react";
 import {
   Box,
   Button,
   createStyles,
   Divider,
+  FormControl,
+  InputLabel,
   makeStyles,
+  Select,
   Typography,
+  MenuItem,
 } from "@material-ui/core";
 
 interface Props {
@@ -32,8 +36,15 @@ function UserCard(props: Props) {
   );
   const classes = useStyles();
 
+  const [newRole, setNewRole] = useState<string | undefined | unknown>("");
+
+  const handleRoleChange = (
+    e: ChangeEvent<{ name?: string | undefined; value: unknown }>
+  ) => {
+    setNewRole(e.target.value);
+  };
+
   const handleDeleteUserClick = (id: string) => {
-    console.log(id);
     fetch(`http://localhost:4000/api/users/${id}`, {
       method: "DELETE",
     }).then(() => {
@@ -41,12 +52,38 @@ function UserCard(props: Props) {
     });
   };
 
+  const handleUpdateUserRoleClick = (
+    id: string,
+    newRole: string | undefined | unknown
+  ) => {
+    fetch(`http://localhost:4000/api/users/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ role: newRole }),
+    }).then(() => {
+      props.triggerFetch();
+    });
+  };
+
   return (
-    <>
+    <Box>
       <Box className={classes.root}>
         <Box>
           <Typography>{props.user}</Typography>
-          <Typography>{props.role}</Typography>
+          <FormControl>
+            <InputLabel id="demo-customized-select-label">Role</InputLabel>
+            <Select
+              labelId="demo-customized-select-label"
+              id="demo-customized-select"
+              defaultValue={props.role}
+              onChange={handleRoleChange}
+            >
+              <MenuItem value={"member"}>Member</MenuItem>
+              <MenuItem value={"admin"}>Admin</MenuItem>
+            </Select>
+          </FormControl>
         </Box>
         <Box className={classes.buttonWrapper}>
           <Button
@@ -55,11 +92,16 @@ function UserCard(props: Props) {
           >
             Delete User
           </Button>
-          <Button color="secondary">Save User</Button>
+          <Button
+            onClick={() => handleUpdateUserRoleClick(props.id, newRole)}
+            color="secondary"
+          >
+            Save User
+          </Button>
         </Box>
       </Box>
       <Divider color="primary" />
-    </>
+    </Box>
   );
 }
 
