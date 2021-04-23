@@ -1,4 +1,5 @@
 export interface Post {
+  _id: string;
   title: string;
   description: string;
   author: string;
@@ -6,6 +7,7 @@ export interface Post {
 }
 
 export interface User {
+  _id: string;
   username: string;
   password: string;
   role: string;
