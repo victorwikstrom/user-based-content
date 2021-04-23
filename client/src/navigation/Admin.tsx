@@ -42,7 +42,7 @@ function Admin() {
   }, [triggerFetch]);
 
   const newUser = {
-    username: "Victor",
+    username: "Oscar",
     password: "kattmy",
     role: "Slave",
   };

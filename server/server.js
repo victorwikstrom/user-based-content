@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import postRouter from "./routers/post.router.js";
 import userRouter from "./routers/user.router.js";
 import cookieSession from "cookie-session";
+import cors from "cors";
 
 const app = express();
 const PORT = 4000;
@@ -18,7 +19,7 @@ app.use(
 );
 
 // middleware för att skapa en req.loggedinuser om en användare loggat in, annars undefined
-
+app.use(cors());
 app.use(express.json());
 app.use(postRouter);
 app.use(userRouter);
