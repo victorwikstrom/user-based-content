@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Box,
-  Button,
-  createStyles,
-  makeStyles,
-  Typography,
-} from "@material-ui/core";
+import { Box, createStyles, makeStyles, Typography } from "@material-ui/core";
 import UserCard from "../components/UserCard";
 import { User } from "../helpers";
 
@@ -41,28 +35,9 @@ function Admin() {
       );
   }, [triggerFetch]);
 
-  const newUser = {
-    username: "Oscar",
-    password: "kattmy",
-    role: "Slave",
-  };
-
-  const handlePostClick = () => {
-    fetch("http://localhost:4000/api/users/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newUser),
-    }).then(() => {
-      setTriggerFetch(false);
-    });
-  };
-
   return (
     <Box className={classes.root}>
       <Typography variant="h4">All Users</Typography>
-      <Button onClick={handlePostClick}>Post user</Button>
       {users.map(({ username, role, _id }) => (
         <UserCard
           user={username}
