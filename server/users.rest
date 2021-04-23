@@ -7,19 +7,20 @@ POST http://localhost:4000/api/users/register
 Content-Type: application/json
 
 {
-    "username": "Victor",
-    "password": "66733",
-    "role": "bhagwan"
+    "username": "Oscar",
+    "password": "36043",
+    "role": "Admin"
 }
+
 ###
 
 // FIND BY ID
-GET http://localhost:4000/api/users/608147d0e8f73c225477a932
+GET http://localhost:4000/api/users/60816ab335d6c9133da4f705
 ###
 ///
 
 // FIND BY ID AND DELETE
-DELETE http://localhost:4000/api/users/6081476fcd4a70223a89fb66
+DELETE http://localhost:4000/api/users/60817e8b471cc81b057127f7
 ###
 ///
 

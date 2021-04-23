@@ -1,13 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, createStyles, makeStyles, Typography } from "@material-ui/core";
-import UserCard from "../components/UserCard";
 import { fakeUsers } from "../fakeUsers";
+import UserCard from "../components/UserCard";
 
 function Admin() {
   const useStyles = makeStyles(() =>
     createStyles({
       root: {
-        width: "400px",
+        width: "100%",
       },
     })
   );
