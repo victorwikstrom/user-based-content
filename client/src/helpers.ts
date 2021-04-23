@@ -1,4 +1,4 @@
-export interface Post {
+export interface Frame {
   _id: string;
   title: string;
   description: string;
@@ -16,7 +16,7 @@ export interface User {
 const makeRequest = async (
   url: string,
   method: string,
-  reqBody?: Post | User
+  reqBody?: Frame | User
 ) => {
   const response = await fetch(url, {
     method: method,
