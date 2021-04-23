@@ -8,12 +8,14 @@ import {
   Typography,
 } from "@material-ui/core";
 
-interface User {
+interface Props {
+  id: string;
   user: string;
   role: string;
+  triggerFetch: () => void;
 }
 
-function UserCard(props: User) {
+function UserCard(props: Props) {
   const useStyles = makeStyles(() =>
     createStyles({
       root: {
@@ -29,6 +31,16 @@ function UserCard(props: User) {
     })
   );
   const classes = useStyles();
+
+  const handleDeleteUserClick = (id: string) => {
+    console.log(id);
+    fetch(`http://localhost:4000/api/users/${id}`, {
+      method: "DELETE",
+    }).then(() => {
+      props.triggerFetch();
+    });
+  };
+
   return (
     <>
       <Box className={classes.root}>
@@ -37,7 +49,12 @@ function UserCard(props: User) {
           <Typography>{props.role}</Typography>
         </Box>
         <Box className={classes.buttonWrapper}>
-          <Button color="primary">Delete User</Button>
+          <Button
+            color="primary"
+            onClick={() => handleDeleteUserClick(props.id)}
+          >
+            Delete User
+          </Button>
           <Button color="secondary">Save User</Button>
         </Box>
       </Box>
