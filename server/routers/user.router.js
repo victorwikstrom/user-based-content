@@ -36,7 +36,9 @@ userRouter.post("/api/users/register", async (req, res) => {
   const users = await UserModel.find({});
   const existingUser = users.find((user) => user.username === username);
   if (existingUser) {
-    res.status(500).json("Username is already taken");
+    res
+      .status(500)
+      .json({ message: "Username is already taken", status: res.statusCode });
     return;
   }
 
