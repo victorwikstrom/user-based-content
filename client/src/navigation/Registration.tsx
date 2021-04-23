@@ -52,10 +52,12 @@ function Registration() {
   };
 
   const handlePostClick = () => {
+    // Validate password match
     if (newUser.password !== newUser.confirmPassword) {
       setHasErr({ ...hasErr, password: true });
       return;
     }
+
     fetch("http://localhost:4000/api/users/register", {
       method: "POST",
       headers: {
@@ -65,6 +67,7 @@ function Registration() {
     })
       .then((res) => res.json())
       .then((result: { message: string; status: number }) => {
+        // Validate username double in backend
         if (result.status === 500) {
           setHasErr({ ...hasErr, username: true });
           return;
@@ -79,7 +82,7 @@ function Registration() {
           <Typography variant="h2">Registration</Typography>
           <Box className={classes.spacing}>
             <TextField
-              onChange={(e) => handleInputChange(e)}
+              onChange={handleInputChange}
               id="username"
               name="username"
               label="Username"
@@ -91,7 +94,7 @@ function Registration() {
 
           <Box className={classes.spacing}>
             <TextField
-              onChange={(e) => handleInputChange(e)}
+              onChange={handleInputChange}
               id="password"
               name="password"
               label="Password"
@@ -102,7 +105,7 @@ function Registration() {
           </Box>
           <Box className={classes.spacing}>
             <TextField
-              onChange={(e) => handleInputChange(e)}
+              onChange={handleInputChange}
               name="confirmPassword"
               id="comfirmPassword"
               label="Comfirm Password"
@@ -116,7 +119,7 @@ function Registration() {
               variant="contained"
               color="primary"
               fullWidth
-              onClick={() => handlePostClick()}
+              onClick={handlePostClick}
             >
               Complete registration
             </Button>
