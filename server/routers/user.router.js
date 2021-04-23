@@ -67,7 +67,7 @@ userRouter.get("/api/users/:id", async (req, res) => {
 userRouter.delete("/api/users/:id", async (req, res) => {
   const user = await UserModel.findByIdAndDelete(req.params.id);
   if (!user) {
-    res.status(404).json("No post was found");
+    res.status(404).json("No user was found");
     return;
   }
   res.status(200).json(user);
@@ -92,7 +92,10 @@ userRouter.post("/api/users/login", async (req, res) => {
   const user = users.find((user) => user.username === username);
 
   if (!user || !(await bcrypt.compare(password, user.password))) {
-    res.status(404).json("Wrong username or password");
+    res.status(404).json({
+      status: res.statusCode,
+      message: "Wrong username or password",
+    });
     return;
   }
 
