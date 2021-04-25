@@ -1,10 +1,14 @@
-import Start from "./navigation/Start";
+import AppTheme from "./theming/AppTheme";
+import Container from "./components/Container";
+import Router from "./navigation/Router";
 
 function App() {
   return (
-    <div>
-      <Start />
-    </div>
+    <AppTheme>
+      <Container>
+        <Router />
+      </Container>
+    </AppTheme>
   );
 }
 

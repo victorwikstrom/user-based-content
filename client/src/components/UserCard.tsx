@@ -45,7 +45,7 @@ function UserCard(props: Props) {
   };
 
   const handleDeleteUserClick = (id: string) => {
-    fetch(`http://localhost:4000/api/users/${id}`, {
+    fetch(`/api/users/${id}`, {
       method: "DELETE",
     }).then(() => {
       props.triggerFetch();
@@ -56,7 +56,7 @@ function UserCard(props: Props) {
     id: string,
     newRole: string | undefined | unknown
   ) => {
-    fetch(`http://localhost:4000/api/users/${id}`, {
+    fetch(`/api/users/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
