@@ -95,6 +95,7 @@ userRouter.post("/api/users/login", async (req, res) => {
     res.status(404).json({
       status: res.statusCode,
       message: "Wrong username or password",
+      full: res,
     });
     return;
   }
