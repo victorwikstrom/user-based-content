@@ -3,6 +3,7 @@ import Admin from "./Admin";
 import Login from "./Login";
 import Registration from "./Registration";
 import Start from "./Start";
+import Upload from "./Upload";
 
 function Router() {
   return (
@@ -14,6 +15,7 @@ function Router() {
         <Route path="/registration" component={Registration} />
         {/* <Route path="/edit" component={Edit} /> */}
         <Route path="/admin" component={Admin} />
+        <Route path="/upload" component={Upload} />
       </Switch>
     </BrowserRouter>
   );

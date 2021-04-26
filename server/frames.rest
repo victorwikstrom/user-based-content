@@ -9,9 +9,11 @@ POST http://localhost:4000/api/frames
 Content-Type: application/json
 
 {
-    "title": "Hermans inlägg nr 2",
+    "title": "Hermans inlägg nr 4",
     "description": "blablabkla",
-    "author": "Herman"
+    "author": "Herman",
+    "image": "https://images.unsplash.com/photo-1599447332712-112c3d0cefb4",
+    "date": "2020-01-09"
 }
 
 ###

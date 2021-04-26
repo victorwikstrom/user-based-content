@@ -5,6 +5,7 @@ const frameSchema = new mongoose.Schema({
   description: "String",
   author: "String",
   date: "String",
+  image: "String",
 });
 
 const FrameModel = mongoose.model("frame", frameSchema);

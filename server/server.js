@@ -3,7 +3,6 @@ import mongoose from "mongoose";
 import frameRouter from "./routers/frame.router.js";
 import userRouter from "./routers/user.router.js";
 import cookieSession from "cookie-session";
-// import cors from "cors";
 
 const app = express();
 const PORT = 4000;
@@ -13,14 +12,13 @@ app.use(
     name: "session",
     secret: "sdg7df7gdiufgdg",
     secure: false,
-    maxAge: 1000 * 60,
+    maxAge: 1000 * 1000,
     httpOnly: true,
   })
 );
 
 // middleware för att skapa en req.loggedinuser om en användare loggat in, annars undefined
 
-// app.use(cors());
 app.use(express.json());
 app.use(frameRouter);
 app.use(userRouter);

@@ -4,6 +4,7 @@ export interface Frame {
   description: string;
   author: string;
   date: string;
+  image: string;
 }
 
 export interface User {
