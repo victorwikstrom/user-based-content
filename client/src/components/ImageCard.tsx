@@ -9,6 +9,11 @@ import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Eagle from "../assets/ramiro-pianarosa-RsOwHO8Q9Sc-unsplash.jpg";
+import { Frame } from "../helpers";
+
+interface Props {
+  frame: Frame;
+}
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -36,15 +41,17 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-function ImageCard() {
+function ImageCard(props: Props) {
   const classes = useStyles();
+
+  const { title, description, author, date, image } = props.frame;
 
   return (
     <Card className={classes.root}>
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
-            R
+            {author[0]}
           </Avatar>
         }
         action={
@@ -52,15 +59,13 @@ function ImageCard() {
             <MoreVertIcon />
           </IconButton>
         }
-        title="This is a card"
-        subheader="September 14, 2016"
+        title={title}
+        subheader={date}
       />
-      <CardMedia className={classes.media} image={Eagle} title="Paella dish" />
+      <CardMedia className={classes.media} image={image} title="Paella dish" />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the
-          mussels, if you like.
+          {description}
         </Typography>
       </CardContent>
     </Card>
