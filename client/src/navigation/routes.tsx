@@ -23,4 +23,8 @@ export const routes: { name: string; path: string }[] = [
     name: "Admin",
     path: "/admin",
   },
+  {
+    name: "Upload",
+    path: "/upload",
+  },
 ];

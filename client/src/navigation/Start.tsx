@@ -4,6 +4,7 @@ import Header from "../components/Header";
 import ImageCard from "../components/ImageCard";
 import PageHeading from "../components/PageHeading";
 import { Frame } from "../helpers";
+import { Link } from "react-router-dom";
 
 function Start() {
   const useStyles = makeStyles(() =>
@@ -47,7 +48,13 @@ function Start() {
       {frames.map((frame) => (
         <ImageCard frame={frame} />
       ))}
-      <Button variant="contained" color="primary" className={classes.addImage}>
+      <Button
+        variant="contained"
+        color="primary"
+        className={classes.addImage}
+        component={Link}
+        to="/upload"
+      >
         Add image
       </Button>
     </div>
