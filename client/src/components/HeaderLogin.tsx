@@ -5,6 +5,7 @@ import {
   makeStyles,
   Typography,
 } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 function HeaderLogin() {
   const useStyles = makeStyles(() =>
@@ -24,10 +25,14 @@ function HeaderLogin() {
   return (
     <Box>
       <Box className={classes.loginContainer}>
-        <Button>Log in</Button>
+        <Button component={Link} to="/login">
+          Log in
+        </Button>
         <Typography>or</Typography>
       </Box>
-      <Button>Register</Button>
+      <Button component={Link} to="/registration">
+        Register
+      </Button>
     </Box>
   );
 }

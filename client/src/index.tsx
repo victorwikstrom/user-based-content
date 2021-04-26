@@ -1,17 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
-import AppTheme from "./theming/AppTheme";
-import Container from "./components/Container";
-import Router from "./navigation/Router";
+import App from "./App";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <AppTheme>
-      <Container>
-        <Router />
-      </Container>
-    </AppTheme>
-  </React.StrictMode>,
-  document.getElementById("root")
-);
+ReactDOM.render(<App />, document.getElementById("root"));

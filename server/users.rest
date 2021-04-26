@@ -8,8 +8,8 @@ Content-Type: application/json
 
 {
     "username": "Herman",
-    "password": "hejdå",
-    "role": "Admin"
+    "password": "hej",
+    "role": "member"
 }
 
 ###

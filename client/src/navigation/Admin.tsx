@@ -18,7 +18,7 @@ function Admin() {
   console.log(triggerFetch);
 
   useEffect(() => {
-    fetch("http://localhost:4000/api/users")
+    fetch("/api/users")
       .then((res) => res.json())
       .then(
         (result) => {
@@ -40,6 +40,7 @@ function Admin() {
       <Typography variant="h4">All Users</Typography>
       {users.map(({ username, role, _id }) => (
         <UserCard
+          key={_id}
           user={username}
           role={role}
           id={_id}

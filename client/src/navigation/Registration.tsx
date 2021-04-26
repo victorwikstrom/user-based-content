@@ -7,6 +7,7 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 interface newUser {
   username: string;
@@ -58,7 +59,7 @@ function Registration() {
       return;
     }
 
-    fetch("http://localhost:4000/api/users/register", {
+    fetch("/api/users/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -132,7 +133,10 @@ function Registration() {
           </Box>
           <Box>
             <Box>
-              Already a member? <Button>Sign In</Button>
+              Already a member?{" "}
+              <Button component={Link} to="/login">
+                Sign In
+              </Button>
             </Box>
           </Box>
         </Box>

@@ -18,7 +18,7 @@ function Start() {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <Header userIsLoggedIn={true} />
+      <Header userIsLoggedIn={false} />
       <PageHeading pageName={"Page name placeholder"} />
       <ImageCard />
       <ImageCard />

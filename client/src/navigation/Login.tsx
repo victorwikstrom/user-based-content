@@ -7,6 +7,7 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 function Login() {
   const useStyles = makeStyles(() =>
@@ -43,9 +44,9 @@ function Login() {
 
   const handleLoginClick = () => {
     console.log(user);
-    fetch("http://localhost:4000/api/users/login", {
+    fetch("/api/users/login", {
       method: "POST",
-      // credentials: "include",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -99,7 +100,10 @@ function Login() {
         </Box>
         <Box>
           <Typography>
-            Not a member? <Button>Sign Up</Button>
+            Not a member?{" "}
+            <Button component={Link} to="/registration">
+              Sign Up
+            </Button>
           </Typography>
         </Box>
       </form>
