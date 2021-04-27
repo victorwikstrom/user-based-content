@@ -1,10 +1,4 @@
-import {
-  Box,
-  Button,
-  createStyles,
-  makeStyles,
-  Typography,
-} from "@material-ui/core";
+import { createStyles, makeStyles, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
 interface Props {

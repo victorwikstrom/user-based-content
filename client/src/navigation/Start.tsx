@@ -2,7 +2,6 @@ import { Button, createStyles, makeStyles } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import ImageCard from "../components/ImageCard";
-import PageHeading from "../components/PageHeading";
 import { Frame } from "../helpers";
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
@@ -46,7 +45,7 @@ function Start() {
     <div className={classes.root}>
       <Header userIsLoggedIn={false} />
       {frames.map((frame) => (
-        <ImageCard frame={frame} />
+        <ImageCard frame={frame} triggerFetch={() => setTriggerFetch(false)} />
       ))}
       <Button
         variant="contained"

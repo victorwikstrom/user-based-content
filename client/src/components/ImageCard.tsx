@@ -9,40 +9,107 @@ import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { Frame } from "../helpers";
+import { Box, Button, TextField } from "@material-ui/core";
+import { ChangeEvent, useState } from "react";
 
 interface Props {
   frame: Frame;
+  triggerFetch: () => void;
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      marginBottom: "2rem",
-    },
-    media: {
-      height: 0,
-      paddingTop: "56.25%", // 16:9
-    },
-    expand: {
-      transform: "rotate(0deg)",
-      marginLeft: "auto",
-      transition: theme.transitions.create("transform", {
-        duration: theme.transitions.duration.shortest,
-      }),
-    },
-    expandOpen: {
-      transform: "rotate(180deg)",
-    },
-    avatar: {
-      backgroundColor: red[500],
-    },
-  })
-);
-
 function ImageCard(props: Props) {
+  const [showButtons, setShowButtons] = useState(false);
+  const [editable, setEditable] = useState(false);
+
+  const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+      root: {
+        position: "relative",
+        width: "100%",
+        marginBottom: "2rem",
+      },
+      media: {
+        height: 0,
+        paddingTop: "56.25%", // 16:9
+      },
+      expand: {
+        transform: "rotate(0deg)",
+        marginLeft: "auto",
+        transition: theme.transitions.create("transform", {
+          duration: theme.transitions.duration.shortest,
+        }),
+      },
+      expandOpen: {
+        transform: "rotate(180deg)",
+      },
+      avatar: {
+        backgroundColor: red[500],
+      },
+      actionButtons: {
+        position: "absolute",
+        right: "0",
+        display: showButtons ? "flex" : "none",
+        flexDirection: "column",
+      },
+      showOnEdit: {
+        display: editable ? "block" : "none",
+      },
+      hideOnEdit: {
+        display: editable ? "none" : "block",
+      },
+    })
+  );
   const classes = useStyles();
 
-  const { title, description, author, date, image } = props.frame;
+  const toggleShowButtons = () => {
+    setShowButtons(!showButtons);
+  };
+
+  const handleEditFrameClick = (id: string) => {
+    setEditable(!editable);
+    setShowButtons(!showButtons);
+  };
+
+  const [editedFrame, setEditedFrame] = useState({
+    title: "",
+    description: "",
+  });
+
+  const handleEditFrameChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setEditedFrame({
+      ...editedFrame,
+      [name]: value,
+    });
+  };
+
+  const handleSaveEditedFrame = (id: string) => {
+    fetch(`/api/frames/${id}`, {
+      method: "PUT",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(editedFrame),
+    }).then(() => {
+      props.triggerFetch();
+    });
+    setEditable(false);
+  };
+
+  console.log(editedFrame);
+
+  const handleDeleteFrameClick = (id: string) => {
+    fetch(`/api/frames/${id}`, {
+      method: "DELETE",
+    }).then(() => {
+      props.triggerFetch();
+    });
+  };
+
+  const { _id, title, description, author, date, image } = props.frame;
 
   return (
     <Card className={classes.root}>
@@ -53,18 +120,57 @@ function ImageCard(props: Props) {
           </Avatar>
         }
         action={
-          <IconButton aria-label="settings">
+          <IconButton onClick={toggleShowButtons} aria-label="settings">
             <MoreVertIcon />
           </IconButton>
         }
-        title={title}
+        title={
+          editable ? (
+            <TextField
+              onChange={handleEditFrameChange}
+              className={classes.showOnEdit}
+              name="title"
+              defaultValue={title}
+            />
+          ) : (
+            title
+          )
+        }
         subheader={date}
       />
+      <Box className={classes.actionButtons}>
+        <Button onClick={() => handleEditFrameClick(_id)} variant="contained">
+          Edit
+        </Button>
+        <Button onClick={() => handleDeleteFrameClick(_id)} variant="contained">
+          Delete
+        </Button>
+      </Box>
       <CardMedia className={classes.media} image={image} title="Paella dish" />
       <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
+        <Typography
+          className={classes.hideOnEdit}
+          variant="body2"
+          color="textSecondary"
+          component="p"
+        >
           {description}
         </Typography>
+
+        <TextField
+          onChange={handleEditFrameChange}
+          className={classes.showOnEdit}
+          name="description"
+          defaultValue={description}
+          multiline
+        />
+        <Button
+          className={classes.showOnEdit}
+          variant="contained"
+          onClick={() => handleSaveEditedFrame(_id)}
+        >
+          Save Changes
+        </Button>
       </CardContent>
     </Card>
   );

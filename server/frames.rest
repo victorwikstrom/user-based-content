@@ -36,4 +36,4 @@ Content-Type: application/json
 ###
 
 // FIND BY ID AND DELETE
-DELETE http://localhost:4000/api/frames/60813bd9d326bb1817eb6b74
+DELETE http://localhost:4000/api/frames/6087bc2723abf67562a27c77
