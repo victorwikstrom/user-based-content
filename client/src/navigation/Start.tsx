@@ -46,7 +46,7 @@ function Start() {
       <Header userIsLoggedIn={false} />
       <PageHeading pageName={"Page name placeholder"} />
       {frames.map((frame) => (
-        <ImageCard frame={frame} />
+        <ImageCard frame={frame} triggerFetch={() => setTriggerFetch(false)} />
       ))}
       <Button
         variant="contained"

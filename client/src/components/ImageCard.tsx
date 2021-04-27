@@ -10,41 +10,64 @@ import { red } from "@material-ui/core/colors";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Eagle from "../assets/ramiro-pianarosa-RsOwHO8Q9Sc-unsplash.jpg";
 import { Frame } from "../helpers";
+import { Box, Button } from "@material-ui/core";
+import { useState } from "react";
 
 interface Props {
   frame: Frame;
+  triggerFetch: () => void;
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      maxWidth: 345,
-      marginBottom: "2rem",
-    },
-    media: {
-      height: 0,
-      paddingTop: "56.25%", // 16:9
-    },
-    expand: {
-      transform: "rotate(0deg)",
-      marginLeft: "auto",
-      transition: theme.transitions.create("transform", {
-        duration: theme.transitions.duration.shortest,
-      }),
-    },
-    expandOpen: {
-      transform: "rotate(180deg)",
-    },
-    avatar: {
-      backgroundColor: red[500],
-    },
-  })
-);
-
 function ImageCard(props: Props) {
+  const [showButtons, setShowButtons] = useState(false);
+
+  const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+      root: {
+        position: "relative",
+        maxWidth: 345,
+        marginBottom: "2rem",
+      },
+      media: {
+        height: 0,
+        paddingTop: "56.25%", // 16:9
+      },
+      expand: {
+        transform: "rotate(0deg)",
+        marginLeft: "auto",
+        transition: theme.transitions.create("transform", {
+          duration: theme.transitions.duration.shortest,
+        }),
+      },
+      expandOpen: {
+        transform: "rotate(180deg)",
+      },
+      avatar: {
+        backgroundColor: red[500],
+      },
+      actionButtons: {
+        position: "absolute",
+        right: "0",
+        display: showButtons ? "flex" : "none",
+        flexDirection: "column",
+      },
+    })
+  );
   const classes = useStyles();
 
-  const { title, description, author, date, image } = props.frame;
+  const toggleShowButtons = () => {
+    setShowButtons(!showButtons);
+  };
+
+  const handleDeleteFrameClick = (id: string) => {
+    fetch(`/api/frames/${id}`, {
+      method: "DELETE",
+    }).then(() => {
+      props.triggerFetch();
+    });
+  };
+
+  const { _id, title, description, author, date, image } = props.frame;
 
   return (
     <Card className={classes.root}>
@@ -55,13 +78,19 @@ function ImageCard(props: Props) {
           </Avatar>
         }
         action={
-          <IconButton aria-label="settings">
+          <IconButton onClick={toggleShowButtons} aria-label="settings">
             <MoreVertIcon />
           </IconButton>
         }
         title={title}
         subheader={date}
       />
+      <Box className={classes.actionButtons}>
+        <Button variant="contained">Edit</Button>
+        <Button onClick={() => handleDeleteFrameClick(_id)} variant="contained">
+          Delete
+        </Button>
+      </Box>
       <CardMedia className={classes.media} image={image} title="Paella dish" />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
