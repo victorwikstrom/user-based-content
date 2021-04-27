@@ -8,6 +8,8 @@ import {
   Typography,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import Header from "../components/Header";
+import PageHeading from "../components/PageHeading";
 
 interface newUser {
   username: string;
@@ -28,7 +30,8 @@ function Registration() {
 
   const useStyles = makeStyles(() =>
     createStyles({
-      root: {
+      root: {},
+      form: {
         width: "400px",
         display: "flex",
         flexDirection: "column",
@@ -78,9 +81,10 @@ function Registration() {
 
   return (
     <div className={classes.root}>
-      <form>
+      <Header userIsLoggedIn={false} />
+      <PageHeading pageName={"Create an account"} />
+      <form className={classes.form}>
         <Box>
-          <Typography variant="h2">Registration</Typography>
           <Box className={classes.spacing}>
             <TextField
               onChange={handleInputChange}
@@ -99,6 +103,7 @@ function Registration() {
               id="password"
               name="password"
               label="Password"
+              type="password"
               variant="filled"
               required
               fullWidth
@@ -110,6 +115,7 @@ function Registration() {
               name="confirmPassword"
               id="comfirmPassword"
               label="Comfirm Password"
+              type="password"
               variant="filled"
               required
               fullWidth

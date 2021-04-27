@@ -5,6 +5,7 @@ import ImageCard from "../components/ImageCard";
 import PageHeading from "../components/PageHeading";
 import { Frame } from "../helpers";
 import { Link } from "react-router-dom";
+import Footer from "../components/Footer";
 
 function Start() {
   const useStyles = makeStyles(() =>
@@ -44,7 +45,6 @@ function Start() {
   return (
     <div className={classes.root}>
       <Header userIsLoggedIn={false} />
-      <PageHeading pageName={"Page name placeholder"} />
       {frames.map((frame) => (
         <ImageCard frame={frame} />
       ))}
@@ -57,6 +57,7 @@ function Start() {
       >
         Add image
       </Button>
+      <Footer userIsLoggedIn={true} />
     </div>
   );
 }

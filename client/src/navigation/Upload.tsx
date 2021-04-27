@@ -8,12 +8,15 @@ import {
   Typography,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import { Frame } from "../helpers";
+import Header from "../components/Header";
+import PageHeading from "../components/PageHeading";
+import Footer from "../components/Footer";
 
 function Upload() {
   const useStyles = makeStyles(() =>
     createStyles({
-      root: {
+      root: {},
+      form: {
         width: "400px",
         display: "flex",
         flexDirection: "column",
@@ -67,8 +70,9 @@ function Upload() {
 
   return (
     <Box className={classes.root}>
-      <form>
-        <Typography variant="h2">Add new frame</Typography>
+      <Header userIsLoggedIn={false} />
+      <PageHeading pageName="Create new frame" />
+      <form className={classes.form}>
         <Box className={classes.spacing}>
           <TextField
             onChange={handleInputChange}
@@ -119,6 +123,7 @@ function Upload() {
           {hasErr ? <Typography>Something is wrong</Typography> : null}
         </Box>
       </form>
+      <Footer userIsLoggedIn={true} />
     </Box>
   );
 }

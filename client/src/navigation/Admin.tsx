@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Box, createStyles, makeStyles, Typography } from "@material-ui/core";
+import { Box, createStyles, makeStyles } from "@material-ui/core";
 import UserCard from "../components/UserCard";
 import { User } from "../helpers";
+import Header from "../components/Header";
+import PageHeading from "../components/PageHeading";
 
 function Admin() {
   const useStyles = makeStyles(() =>
@@ -37,7 +39,8 @@ function Admin() {
 
   return (
     <Box className={classes.root}>
-      <Typography variant="h4">All Users</Typography>
+      <Header userIsLoggedIn={false} />
+      <PageHeading pageName="All users" />
       {users.map(({ username, role, _id }) => (
         <UserCard
           key={_id}
