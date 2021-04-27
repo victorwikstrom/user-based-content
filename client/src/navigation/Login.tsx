@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -7,7 +7,7 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import Header from "../components/Header";
 import PageHeading from "../components/PageHeading";
 
@@ -32,6 +32,25 @@ function Login() {
     username: "",
     password: "",
   });
+
+  const history = useHistory();
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("/api/users/authenticate", {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        if (result.authenticated) {
+          history.replace("/");
+        } else {
+          setLoading(false);
+        }
+      });
+  }, []);
+
   const [hasErr, setHasErr] = useState(false);
 
   const handleInputChange = (
@@ -46,7 +65,6 @@ function Login() {
   };
 
   const handleLoginClick = () => {
-    console.log(user);
     fetch("/api/users/login", {
       method: "POST",
       credentials: "include",
@@ -61,8 +79,12 @@ function Login() {
           setHasErr(true);
           return;
         }
+      })
+      .then(() => {
+        history.push("/");
       });
   };
+  if (loading) return <div>loading</div>;
   return (
     <Box className={classes.root}>
       <Header userIsLoggedIn={false} />

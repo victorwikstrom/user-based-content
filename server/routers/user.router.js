@@ -14,6 +14,18 @@ userRouter.get("/api/users", async (req, res) => {
   res.status(200).json(users);
 });
 
+// AUTHENTICATE
+userRouter.get("/api/users/authenticate", async (req, res) => {
+  if (req.session.username) {
+    res.status(200).json({
+      authenticated: true,
+      user: req.session.user,
+    });
+    return;
+  }
+  res.status(400).json({ authenticated: false });
+});
+
 // REGISTER
 userRouter.post("/api/users/register", async (req, res) => {
   // Check if there is a logged in user
@@ -100,7 +112,7 @@ userRouter.post("/api/users/login", async (req, res) => {
     return;
   }
 
-  req.session.username = user.username;
+  req.session.user = user;
 
   res.status(200).json(user);
 });

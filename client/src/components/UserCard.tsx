@@ -36,12 +36,12 @@ function UserCard(props: Props) {
   );
   const classes = useStyles();
 
-  const [newRole, setNewRole] = useState<string | undefined | unknown>("");
+  const [role, setRole] = useState<string | undefined | unknown>(props.role);
 
   const handleRoleChange = (
     e: ChangeEvent<{ name?: string | undefined; value: unknown }>
   ) => {
-    setNewRole(e.target.value);
+    setRole(e.target.value);
     console.log(e.target.value);
   };
 
@@ -67,6 +67,7 @@ function UserCard(props: Props) {
       props.triggerFetch();
     });
   };
+  console.log(props.role);
 
   return (
     <Box>
@@ -74,8 +75,8 @@ function UserCard(props: Props) {
         <Box>
           <Typography>{props.user}</Typography>
           <FormControl>
-            <InputLabel id="demo-customized-select-label">Role</InputLabel>
-            <Select defaultValue={props.role} onChange={handleRoleChange}>
+            <InputLabel>Role</InputLabel>
+            <Select value={role} onChange={handleRoleChange}>
               <MenuItem value={"member"}>Member</MenuItem>
               <MenuItem value={"admin"}>Admin</MenuItem>
             </Select>
@@ -89,7 +90,7 @@ function UserCard(props: Props) {
             Delete User
           </Button>
           <Button
-            onClick={() => handleUpdateUserRoleClick(props.id, newRole)}
+            onClick={() => handleUpdateUserRoleClick(props.id, role)}
             color="secondary"
           >
             Save User
