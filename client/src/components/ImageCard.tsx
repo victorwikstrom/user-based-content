@@ -10,8 +10,8 @@ import { red } from "@material-ui/core/colors";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Eagle from "../assets/ramiro-pianarosa-RsOwHO8Q9Sc-unsplash.jpg";
 import { Frame } from "../helpers";
-import { Box, Button } from "@material-ui/core";
-import { useState } from "react";
+import { Box, Button, TextField } from "@material-ui/core";
+import { ChangeEvent, useState } from "react";
 
 interface Props {
   frame: Frame;
@@ -20,6 +20,7 @@ interface Props {
 
 function ImageCard(props: Props) {
   const [showButtons, setShowButtons] = useState(false);
+  const [editable, setEditable] = useState(false);
 
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -51,6 +52,12 @@ function ImageCard(props: Props) {
         display: showButtons ? "flex" : "none",
         flexDirection: "column",
       },
+      showOnEdit: {
+        display: editable ? "block" : "none",
+      },
+      hideOnEdit: {
+        display: editable ? "none" : "block",
+      },
     })
   );
   const classes = useStyles();
@@ -58,6 +65,42 @@ function ImageCard(props: Props) {
   const toggleShowButtons = () => {
     setShowButtons(!showButtons);
   };
+
+  const handleEditFrameClick = (id: string) => {
+    setEditable(!editable);
+    setShowButtons(!showButtons);
+  };
+
+  const [editedFrame, setEditedFrame] = useState({
+    title: "",
+    description: "",
+  });
+
+  const handleEditFrameChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setEditedFrame({
+      ...editedFrame,
+      [name]: value,
+    });
+  };
+
+  const handleSaveEditedFrame = (id: string) => {
+    fetch(`/api/frames/${id}`, {
+      method: "PUT",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(editedFrame),
+    }).then(() => {
+      props.triggerFetch();
+    });
+    setEditable(false);
+  };
+
+  console.log(editedFrame);
 
   const handleDeleteFrameClick = (id: string) => {
     fetch(`/api/frames/${id}`, {
@@ -82,20 +125,53 @@ function ImageCard(props: Props) {
             <MoreVertIcon />
           </IconButton>
         }
-        title={title}
+        title={
+          editable ? (
+            <TextField
+              onChange={handleEditFrameChange}
+              className={classes.showOnEdit}
+              name="title"
+              defaultValue={title}
+            />
+          ) : (
+            title
+          )
+        }
         subheader={date}
       />
       <Box className={classes.actionButtons}>
-        <Button variant="contained">Edit</Button>
+        <Button onClick={() => handleEditFrameClick(_id)} variant="contained">
+          Edit
+        </Button>
         <Button onClick={() => handleDeleteFrameClick(_id)} variant="contained">
           Delete
         </Button>
       </Box>
       <CardMedia className={classes.media} image={image} title="Paella dish" />
       <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
+        <Typography
+          className={classes.hideOnEdit}
+          variant="body2"
+          color="textSecondary"
+          component="p"
+        >
           {description}
         </Typography>
+
+        <TextField
+          onChange={handleEditFrameChange}
+          className={classes.showOnEdit}
+          name="description"
+          defaultValue={description}
+          multiline
+        />
+        <Button
+          className={classes.showOnEdit}
+          variant="contained"
+          onClick={() => handleSaveEditedFrame(_id)}
+        >
+          Save Changes
+        </Button>
       </CardContent>
     </Card>
   );
