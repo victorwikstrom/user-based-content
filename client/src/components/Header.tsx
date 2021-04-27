@@ -6,6 +6,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import HeaderLogin from "./HeaderLogin";
+import { Link } from "react-router-dom";
 
 interface Props {
   userIsLoggedIn: boolean;
@@ -34,7 +35,9 @@ function Header(props: Props) {
   return (
     <div className={classes.root}>
       <Typography component="h1" variant="h6">
-        App Title
+        <Link style={{ textDecoration: "none", color: "black" }} to="/">
+          Instaframe
+        </Link>
       </Typography>
       <Box className={classes.right}>
         {props.userIsLoggedIn ? (

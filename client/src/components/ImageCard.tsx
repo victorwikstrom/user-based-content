@@ -8,7 +8,6 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
-import Eagle from "../assets/ramiro-pianarosa-RsOwHO8Q9Sc-unsplash.jpg";
 import { Frame } from "../helpers";
 
 interface Props {
@@ -18,7 +17,6 @@ interface Props {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      maxWidth: 345,
       marginBottom: "2rem",
     },
     media: {

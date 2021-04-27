@@ -4,20 +4,12 @@ export const routes: { name: string; path: string }[] = [
     path: "/",
   },
   {
-    name: "Home",
-    path: "/home",
-  },
-  {
     name: "Login",
     path: "/login",
   },
   {
     name: "Registration",
     path: "/registration",
-  },
-  {
-    name: "Edit",
-    path: "/edit",
   },
   {
     name: "Admin",
