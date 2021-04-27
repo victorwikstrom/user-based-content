@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, useContext, useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -7,9 +7,10 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Header from "../components/Header";
 import PageHeading from "../components/PageHeading";
+import { LoggedInContext } from "../context/LoggedInContext";
 
 function Login() {
   const useStyles = makeStyles(() =>
@@ -27,6 +28,8 @@ function Login() {
     })
   );
   const classes = useStyles();
+
+  const loggedInContext = useContext(LoggedInContext);
 
   const [user, setUser] = useState<{ username: string; password: string }>({
     username: "",
@@ -82,6 +85,7 @@ function Login() {
       })
       .then(() => {
         history.push("/");
+        loggedInContext.authenticateUser();
       });
   };
   if (loading) return <div>loading</div>;

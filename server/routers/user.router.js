@@ -16,10 +16,10 @@ userRouter.get("/api/users", async (req, res) => {
 
 // AUTHENTICATE
 userRouter.get("/api/users/authenticate", async (req, res) => {
-  if (req.session.username) {
+  if (req.session.user) {
     res.status(200).json({
       authenticated: true,
-      // user: req.session.user,
+      user: req.session.user,
     });
     return;
   }
@@ -115,6 +115,16 @@ userRouter.post("/api/users/login", async (req, res) => {
   req.session.user = user;
 
   res.status(200).json(user);
+});
+
+//LOG OUT
+userRouter.delete("/api/users/logout", (req, res) => {
+  if (!req.session.user) {
+    res.status(400).json("You're already logged out");
+    return;
+  }
+  req.session = null;
+  res.status(200).json("You're logged out!");
 });
 
 export default userRouter;

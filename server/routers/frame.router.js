@@ -62,7 +62,7 @@ frameRouter.delete("/api/frames/:id", async (req, res) => {
 });
 
 function userIsLoggedIn(req) {
-  if (req.session.username) {
+  if (req.session.user) {
     return true;
   }
   return false;

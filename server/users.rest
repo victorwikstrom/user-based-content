@@ -37,6 +37,11 @@ POST http://localhost:4000/api/users/login
 Content-Type: application/json
 
 {
-    "username": "victor",
+    "username": "Herman",
     "password": "hej"
 }
+
+###
+
+//LOGOUT 
+DELETE http://localhost:4000/api/users/logout

@@ -1,10 +1,11 @@
 import { Button, createStyles, makeStyles } from "@material-ui/core";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Header from "../components/Header";
 import ImageCard from "../components/ImageCard";
 import { Frame } from "../helpers";
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
+import { LoggedInContext } from "../context/LoggedInContext";
 
 function Start() {
   const useStyles = makeStyles(() =>
@@ -19,9 +20,10 @@ function Start() {
   );
   const classes = useStyles();
 
+  const loggedInContext = useContext(LoggedInContext);
+
   const [triggerFetch, setTriggerFetch] = useState(false);
   const [frames, setFrames] = useState<Frame[]>([]);
-  console.log(frames);
 
   useEffect(() => {
     fetch("/api/frames")
@@ -43,9 +45,13 @@ function Start() {
 
   return (
     <div className={classes.root}>
-      <Header userIsLoggedIn={false} />
+      <Header userIsLoggedIn={loggedInContext.authenticated} />
       {frames.map((frame) => (
-        <ImageCard frame={frame} triggerFetch={() => setTriggerFetch(false)} />
+        <ImageCard
+          frame={frame}
+          key={frame._id}
+          triggerFetch={() => setTriggerFetch(false)}
+        />
       ))}
       <Button
         variant="contained"
@@ -56,7 +62,7 @@ function Start() {
       >
         Add image
       </Button>
-      <Footer userIsLoggedIn={true} />
+      <Footer userIsLoggedIn={loggedInContext.authenticated} />
     </div>
   );
 }
