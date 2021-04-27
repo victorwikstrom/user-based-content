@@ -42,6 +42,7 @@ function UserCard(props: Props) {
     e: ChangeEvent<{ name?: string | undefined; value: unknown }>
   ) => {
     setNewRole(e.target.value);
+    console.log(e.target.value);
   };
 
   const handleDeleteUserClick = (id: string) => {
@@ -74,12 +75,7 @@ function UserCard(props: Props) {
           <Typography>{props.user}</Typography>
           <FormControl>
             <InputLabel id="demo-customized-select-label">Role</InputLabel>
-            <Select
-              labelId="demo-customized-select-label"
-              id="demo-customized-select"
-              defaultValue={props.role}
-              onChange={handleRoleChange}
-            >
+            <Select defaultValue={props.role} onChange={handleRoleChange}>
               <MenuItem value={"member"}>Member</MenuItem>
               <MenuItem value={"admin"}>Admin</MenuItem>
             </Select>

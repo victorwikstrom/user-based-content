@@ -48,7 +48,7 @@ userRouter.post("/api/users/register", async (req, res) => {
   const user = await UserModel.create({
     username: username,
     password: hashedPassword,
-    role: role,
+    role: "member",
   });
   res.status(201).json(user);
 });
