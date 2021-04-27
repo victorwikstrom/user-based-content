@@ -8,7 +8,6 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
-import Eagle from "../assets/ramiro-pianarosa-RsOwHO8Q9Sc-unsplash.jpg";
 import { Frame } from "../helpers";
 import { Box, Button, TextField } from "@material-ui/core";
 import { ChangeEvent, useState } from "react";
@@ -26,7 +25,7 @@ function ImageCard(props: Props) {
     createStyles({
       root: {
         position: "relative",
-        maxWidth: 345,
+        width: "100%",
         marginBottom: "2rem",
       },
       media: {

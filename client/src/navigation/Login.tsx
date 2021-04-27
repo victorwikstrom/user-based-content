@@ -8,11 +8,14 @@ import {
   Typography,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import Header from "../components/Header";
+import PageHeading from "../components/PageHeading";
 
 function Login() {
   const useStyles = makeStyles(() =>
     createStyles({
-      root: {
+      root: {},
+      form: {
         width: "400px",
         display: "flex",
         flexDirection: "column",
@@ -62,8 +65,9 @@ function Login() {
   };
   return (
     <Box className={classes.root}>
-      <form>
-        <Typography variant="h2">Sign In</Typography>
+      <Header userIsLoggedIn={false} />
+      <PageHeading pageName={"Sign In"} />
+      <form className={classes.form}>
         <Box className={classes.spacing}>
           <TextField
             onChange={handleInputChange}
@@ -82,6 +86,7 @@ function Login() {
             id="password"
             label="Password"
             name="password"
+            type="password"
             variant="filled"
             required
             fullWidth
