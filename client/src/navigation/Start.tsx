@@ -21,7 +21,6 @@ function Start() {
 
   const [triggerFetch, setTriggerFetch] = useState(false);
   const [frames, setFrames] = useState<Frame[]>([]);
-  console.log(frames);
 
   useEffect(() => {
     fetch("/api/frames")
@@ -45,7 +44,11 @@ function Start() {
     <div className={classes.root}>
       <Header userIsLoggedIn={false} />
       {frames.map((frame) => (
-        <ImageCard frame={frame} triggerFetch={() => setTriggerFetch(false)} />
+        <ImageCard
+          frame={frame}
+          key={frame._id}
+          triggerFetch={() => setTriggerFetch(false)}
+        />
       ))}
       <Button
         variant="contained"

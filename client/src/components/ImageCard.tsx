@@ -99,8 +99,6 @@ function ImageCard(props: Props) {
     setEditable(false);
   };
 
-  console.log(editedFrame);
-
   const handleDeleteFrameClick = (id: string) => {
     fetch(`/api/frames/${id}`, {
       method: "DELETE",

@@ -63,6 +63,7 @@ function Upload() {
       .then((result: { message: string; status: number }) => {
         if (result.status === 500) {
           setHasErr(true);
+          console.log(result);
           return;
         }
       });
