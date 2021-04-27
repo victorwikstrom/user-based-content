@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -7,10 +7,9 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import { Link } from "react-router-dom";
-import Header from "../components/Header";
+import { Link, useHistory } from "react-router-dom";
 import PageHeading from "../components/PageHeading";
-import Footer from "../components/Footer";
+import Section from "../components/Section";
 
 function Upload() {
   const useStyles = makeStyles(() =>
@@ -37,6 +36,24 @@ function Upload() {
     image: "",
   });
   const [hasErr, setHasErr] = useState(false);
+
+  const [loading, setLoading] = useState(true);
+  const history = useHistory();
+
+  useEffect(() => {
+    fetch("/api/users/authenticate", {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        if (!result.authenticated) {
+          history.replace("/");
+        } else {
+          setLoading(false);
+        }
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleInputChange = (
     e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
@@ -69,63 +86,64 @@ function Upload() {
       });
   };
 
+  if (loading) return <div>loading</div>;
   return (
-    <Box className={classes.root}>
-      <Header userIsLoggedIn={false} />
-      <PageHeading pageName="Create new frame" />
-      <form className={classes.form}>
-        <Box className={classes.spacing}>
-          <TextField
-            onChange={handleInputChange}
-            id="title"
-            label="Title"
-            name="title"
-            variant="filled"
-            required
-            fullWidth
-          />
-        </Box>
+    <Section>
+      <Box className={classes.root}>
+        <PageHeading pageName="Create new frame" />
+        <form className={classes.form}>
+          <Box className={classes.spacing}>
+            <TextField
+              onChange={handleInputChange}
+              id="title"
+              label="Title"
+              name="title"
+              variant="filled"
+              required
+              fullWidth
+            />
+          </Box>
 
-        <Box className={classes.spacing}>
-          <TextField
-            onChange={handleInputChange}
-            id="description"
-            label="Description"
-            name="description"
-            variant="filled"
-            multiline
-            required
-            fullWidth
-          />
-        </Box>
+          <Box className={classes.spacing}>
+            <TextField
+              onChange={handleInputChange}
+              id="description"
+              label="Description"
+              name="description"
+              variant="filled"
+              multiline
+              required
+              fullWidth
+            />
+          </Box>
 
-        <Box className={classes.spacing}>
-          <TextField
-            onChange={handleInputChange}
-            id="image"
-            label="Image url"
-            name="image"
-            variant="filled"
-            required
-            fullWidth
-          />
-        </Box>
-        <Box className={classes.spacing}>
-          <Button
-            variant="contained"
-            color="primary"
-            fullWidth
-            onClick={handleCreateFrameClick}
-            component={Link}
-            to="/"
-          >
-            Upload new frame
-          </Button>
-          {hasErr ? <Typography>Something is wrong</Typography> : null}
-        </Box>
-      </form>
-      <Footer userIsLoggedIn={true} />
-    </Box>
+          <Box className={classes.spacing}>
+            <TextField
+              onChange={handleInputChange}
+              id="image"
+              label="Image url"
+              name="image"
+              variant="filled"
+              required
+              fullWidth
+            />
+          </Box>
+          <Box className={classes.spacing}>
+            <Button
+              variant="contained"
+              color="primary"
+              fullWidth
+              onClick={handleCreateFrameClick}
+              component={Link}
+              to="/"
+            >
+              Upload new frame
+            </Button>
+            {hasErr ? <Typography>Something is wrong</Typography> : null}
+          </Box>
+        </form>
+      </Box>
+    </Section>
   );
 }
 

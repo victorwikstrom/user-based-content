@@ -4,6 +4,7 @@ import UserCard from "../components/UserCard";
 import { User } from "../helpers";
 import Header from "../components/Header";
 import PageHeading from "../components/PageHeading";
+import Section from "../components/Section";
 
 function Admin() {
   const useStyles = makeStyles(() =>
@@ -38,19 +39,21 @@ function Admin() {
   }, [triggerFetch]);
 
   return (
-    <Box className={classes.root}>
-      <Header userIsLoggedIn={false} />
-      <PageHeading pageName="All users" />
-      {users.map(({ username, role, _id }) => (
-        <UserCard
-          key={_id}
-          user={username}
-          role={role}
-          id={_id}
-          triggerFetch={() => setTriggerFetch(false)}
-        />
-      ))}
-    </Box>
+    <Section>
+      <Box className={classes.root}>
+        <Header />
+        <PageHeading pageName="All users" />
+        {users.map(({ username, role, _id }) => (
+          <UserCard
+            key={_id}
+            user={username}
+            role={role}
+            id={_id}
+            triggerFetch={() => setTriggerFetch(false)}
+          />
+        ))}
+      </Box>
+    </Section>
   );
 }
 

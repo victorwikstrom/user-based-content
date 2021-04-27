@@ -1,11 +1,9 @@
 import { Button, createStyles, makeStyles } from "@material-ui/core";
-import { useContext, useEffect, useState } from "react";
-import Header from "../components/Header";
+import { useEffect, useState } from "react";
 import ImageCard from "../components/ImageCard";
 import { Frame } from "../helpers";
 import { Link } from "react-router-dom";
-import Footer from "../components/Footer";
-import { LoggedInContext } from "../context/LoggedInContext";
+import Section from "../components/Section";
 
 function Start() {
   const useStyles = makeStyles(() =>
@@ -19,8 +17,6 @@ function Start() {
     })
   );
   const classes = useStyles();
-
-  const loggedInContext = useContext(LoggedInContext);
 
   const [triggerFetch, setTriggerFetch] = useState(false);
   const [frames, setFrames] = useState<Frame[]>([]);
@@ -44,26 +40,26 @@ function Start() {
   }, [triggerFetch]);
 
   return (
-    <div className={classes.root}>
-      <Header userIsLoggedIn={loggedInContext.authenticated} />
-      {frames.map((frame) => (
-        <ImageCard
-          frame={frame}
-          key={frame._id}
-          triggerFetch={() => setTriggerFetch(false)}
-        />
-      ))}
-      <Button
-        variant="contained"
-        color="primary"
-        className={classes.addImage}
-        component={Link}
-        to="/upload"
-      >
-        Add image
-      </Button>
-      <Footer userIsLoggedIn={loggedInContext.authenticated} />
-    </div>
+    <Section>
+      <div className={classes.root}>
+        {frames.map((frame) => (
+          <ImageCard
+            frame={frame}
+            key={frame._id}
+            triggerFetch={() => setTriggerFetch(false)}
+          />
+        ))}
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.addImage}
+          component={Link}
+          to="/upload"
+        >
+          Add image
+        </Button>
+      </div>
+    </Section>
   );
 }
 

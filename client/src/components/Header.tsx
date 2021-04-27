@@ -9,12 +9,9 @@ import HeaderLogin from "./HeaderLogin";
 import { useContext } from "react";
 import { LoggedInContext } from "../context/LoggedInContext";
 import { Link, useHistory } from "react-router-dom";
+import Section from "./Section";
 
-interface Props {
-  userIsLoggedIn: boolean;
-}
-
-function Header(props: Props) {
+function Header() {
   const useStyles = makeStyles(() =>
     createStyles({
       root: {
@@ -51,25 +48,27 @@ function Header(props: Props) {
   };
 
   return (
-    <div className={classes.root}>
-      <Typography component="h1" variant="h6">
-        <Link style={{ textDecoration: "none", color: "black" }} to="/">
-          Instaframe
-        </Link>
-      </Typography>
-      <Box className={classes.right}>
-        {props.userIsLoggedIn ? (
-          <Box className={classes.right}>
-            <Typography>
-              Logged in as {loggedInContext.user?.username}
-            </Typography>
-            <Button onClick={handleLogOutClick}>Log out</Button>
-          </Box>
-        ) : (
-          <HeaderLogin />
-        )}
-      </Box>
-    </div>
+    <Section>
+      <div className={classes.root}>
+        <Typography component="h1" variant="h6">
+          <Link style={{ textDecoration: "none", color: "black" }} to="/">
+            Instaframe
+          </Link>
+        </Typography>
+        <Box className={classes.right}>
+          {loggedInContext.authenticated ? (
+            <Box className={classes.right}>
+              <Typography>
+                Logged in as {loggedInContext.user?.username}
+              </Typography>
+              <Button onClick={handleLogOutClick}>Log out</Button>
+            </Box>
+          ) : (
+            <HeaderLogin />
+          )}
+        </Box>
+      </div>
+    </Section>
   );
 }
 

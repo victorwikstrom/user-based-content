@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -7,9 +7,9 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import { Link } from "react-router-dom";
-import Header from "../components/Header";
+import { Link, useHistory } from "react-router-dom";
 import PageHeading from "../components/PageHeading";
+import Section from "../components/Section";
 
 interface newUser {
   username: string;
@@ -44,6 +44,24 @@ function Registration() {
   );
   const classes = useStyles();
 
+  const history = useHistory();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("/api/users/authenticate", {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        if (result.authenticated) {
+          history.replace("/");
+        } else {
+          setLoading(false);
+        }
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const handleInputChange = (
     e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => {
@@ -76,78 +94,83 @@ function Registration() {
           setHasErr({ ...hasErr, username: true });
           return;
         }
+      })
+      .then(() => {
+        history.push("/");
       });
   };
 
+  if (loading) return <div>loading</div>;
   return (
-    <div className={classes.root}>
-      <Header userIsLoggedIn={false} />
-      <PageHeading pageName={"Create an account"} />
-      <form className={classes.form}>
-        <Box>
-          <Box className={classes.spacing}>
-            <TextField
-              onChange={handleInputChange}
-              id="username"
-              name="username"
-              label="Username"
-              variant="filled"
-              required
-              fullWidth
-            />
-          </Box>
-
-          <Box className={classes.spacing}>
-            <TextField
-              onChange={handleInputChange}
-              id="password"
-              name="password"
-              label="Password"
-              type="password"
-              variant="filled"
-              required
-              fullWidth
-            />
-          </Box>
-          <Box className={classes.spacing}>
-            <TextField
-              onChange={handleInputChange}
-              name="confirmPassword"
-              id="comfirmPassword"
-              label="Comfirm Password"
-              type="password"
-              variant="filled"
-              required
-              fullWidth
-            />
-          </Box>
-          <Box className={classes.spacing}>
-            <Button
-              variant="contained"
-              color="primary"
-              fullWidth
-              onClick={handlePostClick}
-            >
-              Complete registration
-            </Button>
-            {hasErr.username ? (
-              <Typography>Username is already taken</Typography>
-            ) : null}
-            {hasErr.password ? (
-              <Typography>Password don't match, please try again</Typography>
-            ) : null}
-          </Box>
+    <Section>
+      <div className={classes.root}>
+        <PageHeading pageName={"Create an account"} />
+        <form className={classes.form}>
           <Box>
-            <Box>
-              Already a member?{" "}
-              <Button component={Link} to="/login">
-                Sign In
+            <Box className={classes.spacing}>
+              <TextField
+                onChange={handleInputChange}
+                id="username"
+                name="username"
+                label="Username"
+                variant="filled"
+                required
+                fullWidth
+              />
+            </Box>
+
+            <Box className={classes.spacing}>
+              <TextField
+                onChange={handleInputChange}
+                id="password"
+                name="password"
+                label="Password"
+                type="password"
+                variant="filled"
+                required
+                fullWidth
+              />
+            </Box>
+            <Box className={classes.spacing}>
+              <TextField
+                onChange={handleInputChange}
+                name="confirmPassword"
+                id="comfirmPassword"
+                label="Comfirm Password"
+                type="password"
+                variant="filled"
+                required
+                fullWidth
+              />
+            </Box>
+            <Box className={classes.spacing}>
+              <Button
+                variant="contained"
+                color="primary"
+                fullWidth
+                onClick={handlePostClick}
+              >
+                Complete registration
               </Button>
+              {hasErr.username ? (
+                <Typography>Username is already taken</Typography>
+              ) : null}
+              {hasErr.password ? (
+                <Typography>Password don't match, please try again</Typography>
+              ) : null}
+            </Box>
+            <Box>
+              <Box>
+                Already a member?{" "}
+                <Button component={Link} to="/login">
+                  Sign In
+                </Button>
+              </Box>
             </Box>
           </Box>
-        </Box>
-      </form>
-    </div>
+        </form>
+      </div>
+    </Section>
   );
 }
 

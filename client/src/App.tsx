@@ -1,16 +1,16 @@
-import AppTheme from "./theming/AppTheme";
-import Container from "./components/Container";
-import Router from "./navigation/Router";
 import LoggedInProvider from "./context/LoggedInContext";
+import Container from "./components/Container";
+import AppTheme from "./theming/AppTheme";
+import Router from "./navigation/Router";
 
 function App() {
   return (
     <LoggedInProvider>
-      <AppTheme>
-        <Container>
+      <Container>
+        <AppTheme>
           <Router />
-        </Container>
-      </AppTheme>
+        </AppTheme>
+      </Container>
     </LoggedInProvider>
   );
 }

@@ -1,25 +1,28 @@
 import { createStyles, makeStyles, Typography } from "@material-ui/core";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { LoggedInContext } from "../context/LoggedInContext";
 
-interface Props {
-  userIsLoggedIn: boolean;
-}
-
-function Footer(props: Props) {
+function Footer() {
   const useStyles = makeStyles(() =>
     createStyles({
       root: {
-        height: "50px",
+        backgroundColor: "#333",
+        position: "absolute",
+        bottom: "0",
+        height: "100px",
         width: "100%",
       },
     })
   );
   const classes = useStyles();
 
+  const loggedInContext = useContext(LoggedInContext);
+
   return (
-    <div>
-      {props.userIsLoggedIn ? (
-        <div className={classes.root}>
+    <footer className={classes.root}>
+      {loggedInContext.authenticated ? (
+        <div>
           <Typography>
             <Link
               style={{ textDecoration: "none", color: "black" }}
@@ -30,7 +33,7 @@ function Footer(props: Props) {
           </Typography>
         </div>
       ) : null}
-    </div>
+    </footer>
   );
 }
 

@@ -9,6 +9,7 @@ const Container: React.FC<Props> = ({ children }) => {
   const useStyles = makeStyles(() =>
     createStyles({
       root: {
+        position: "relative",
         width: "100%",
         height: "100vh",
         display: "flex",
@@ -23,7 +24,6 @@ const Container: React.FC<Props> = ({ children }) => {
         overflowX: "auto",
         maxHeight: "800px",
         height: "95vh",
-        padding: "5px 10px",
         borderRadius: "5px",
       },
     })
