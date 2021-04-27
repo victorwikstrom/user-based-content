@@ -19,7 +19,7 @@ userRouter.get("/api/users/authenticate", async (req, res) => {
   if (req.session.username) {
     res.status(200).json({
       authenticated: true,
-      user: req.session.user,
+      // user: req.session.user,
     });
     return;
   }
