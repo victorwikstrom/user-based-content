@@ -8,9 +8,8 @@ import {
   Typography,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import Header from "../components/Header";
 import PageHeading from "../components/PageHeading";
-import Footer from "../components/Footer";
+import Section from "../components/Section";
 
 function Upload() {
   const useStyles = makeStyles(() =>
@@ -70,62 +69,62 @@ function Upload() {
   };
 
   return (
-    <Box className={classes.root}>
-      <Header userIsLoggedIn={false} />
-      <PageHeading pageName="Create new frame" />
-      <form className={classes.form}>
-        <Box className={classes.spacing}>
-          <TextField
-            onChange={handleInputChange}
-            id="title"
-            label="Title"
-            name="title"
-            variant="filled"
-            required
-            fullWidth
-          />
-        </Box>
+    <Section>
+      <Box className={classes.root}>
+        <PageHeading pageName="Create new frame" />
+        <form className={classes.form}>
+          <Box className={classes.spacing}>
+            <TextField
+              onChange={handleInputChange}
+              id="title"
+              label="Title"
+              name="title"
+              variant="filled"
+              required
+              fullWidth
+            />
+          </Box>
 
-        <Box className={classes.spacing}>
-          <TextField
-            onChange={handleInputChange}
-            id="description"
-            label="Description"
-            name="description"
-            variant="filled"
-            multiline
-            required
-            fullWidth
-          />
-        </Box>
+          <Box className={classes.spacing}>
+            <TextField
+              onChange={handleInputChange}
+              id="description"
+              label="Description"
+              name="description"
+              variant="filled"
+              multiline
+              required
+              fullWidth
+            />
+          </Box>
 
-        <Box className={classes.spacing}>
-          <TextField
-            onChange={handleInputChange}
-            id="image"
-            label="Image url"
-            name="image"
-            variant="filled"
-            required
-            fullWidth
-          />
-        </Box>
-        <Box className={classes.spacing}>
-          <Button
-            variant="contained"
-            color="primary"
-            fullWidth
-            onClick={handleCreateFrameClick}
-            component={Link}
-            to="/"
-          >
-            Upload new frame
-          </Button>
-          {hasErr ? <Typography>Something is wrong</Typography> : null}
-        </Box>
-      </form>
-      <Footer userIsLoggedIn={true} />
-    </Box>
+          <Box className={classes.spacing}>
+            <TextField
+              onChange={handleInputChange}
+              id="image"
+              label="Image url"
+              name="image"
+              variant="filled"
+              required
+              fullWidth
+            />
+          </Box>
+          <Box className={classes.spacing}>
+            <Button
+              variant="contained"
+              color="primary"
+              fullWidth
+              onClick={handleCreateFrameClick}
+              component={Link}
+              to="/"
+            >
+              Upload new frame
+            </Button>
+            {hasErr ? <Typography>Something is wrong</Typography> : null}
+          </Box>
+        </form>
+      </Box>
+    </Section>
   );
 }
 

@@ -8,9 +8,9 @@ import {
   Typography,
 } from "@material-ui/core";
 import { Link, useHistory } from "react-router-dom";
-import Header from "../components/Header";
 import PageHeading from "../components/PageHeading";
 import { LoggedInContext } from "../context/LoggedInContext";
+import Section from "../components/Section";
 
 function Login() {
   const useStyles = makeStyles(() =>
@@ -52,6 +52,7 @@ function Login() {
           setLoading(false);
         }
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const [hasErr, setHasErr] = useState(false);
@@ -90,55 +91,58 @@ function Login() {
   };
   if (loading) return <div>loading</div>;
   return (
-    <Box className={classes.root}>
-      <Header userIsLoggedIn={false} />
-      <PageHeading pageName={"Sign In"} />
-      <form className={classes.form}>
-        <Box className={classes.spacing}>
-          <TextField
-            onChange={handleInputChange}
-            id="username"
-            label="Username"
-            name="username"
-            variant="filled"
-            required
-            fullWidth
-          />
-        </Box>
+    <Section>
+      <Box className={classes.root}>
+        <PageHeading pageName={"Sign In"} />
+        <form className={classes.form}>
+          <Box className={classes.spacing}>
+            <TextField
+              onChange={handleInputChange}
+              id="username"
+              label="Username"
+              name="username"
+              variant="filled"
+              required
+              fullWidth
+            />
+          </Box>
 
-        <Box className={classes.spacing}>
-          <TextField
-            onChange={handleInputChange}
-            id="password"
-            label="Password"
-            name="password"
-            type="password"
-            variant="filled"
-            required
-            fullWidth
-          />
-        </Box>
-        <Box className={classes.spacing}>
-          <Button
-            variant="contained"
-            color="primary"
-            fullWidth
-            onClick={handleLoginClick}
-          >
-            Sign In
-          </Button>
-          {hasErr ? <Typography>Wrong username or password</Typography> : null}
-        </Box>
-        <Box>
-          <Typography>
-            Not a member?{" "}
-            <Button component={Link} to="/registration">
-              Sign Up
+          <Box className={classes.spacing}>
+            <TextField
+              onChange={handleInputChange}
+              id="password"
+              label="Password"
+              name="password"
+              type="password"
+              variant="filled"
+              required
+              fullWidth
+            />
+          </Box>
+          <Box className={classes.spacing}>
+            <Button
+              variant="contained"
+              color="primary"
+              fullWidth
+              onClick={handleLoginClick}
+            >
+              Sign In
             </Button>
-          </Typography>
-        </Box>
-      </form>
-    </Box>
+            {hasErr ? (
+              <Typography>Wrong username or password</Typography>
+            ) : null}
+          </Box>
+          <Box>
+            <Typography>
+              Not a member?{" "}
+              <Button component={Link} to="/registration">
+                Sign Up
+              </Button>
+            </Typography>
+          </Box>
+        </form>
+      </Box>
+    </Section>
   );
 }
 

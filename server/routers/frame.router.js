@@ -28,6 +28,7 @@ frameRouter.post("/api/frames", async (req, res) => {
 
   const frame = await FrameModel.create({
     ...req.body,
+    author: req.session.user.username,
     date: new Date().toDateString(),
   });
   res.status(200).json(frame);

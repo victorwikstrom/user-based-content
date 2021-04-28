@@ -1,11 +1,11 @@
 import { Button, createStyles, makeStyles } from "@material-ui/core";
 import { useContext, useEffect, useState } from "react";
-import Header from "../components/Header";
 import ImageCard from "../components/ImageCard";
 import { Frame } from "../helpers";
 import { Link } from "react-router-dom";
-import Footer from "../components/Footer";
+import Section from "../components/Section";
 import { LoggedInContext } from "../context/LoggedInContext";
+import Footer from "../components/Footer";
 
 function Start() {
   const useStyles = makeStyles(() =>
@@ -15,6 +15,7 @@ function Start() {
         position: "fixed",
         bottom: "10%",
         right: "41%",
+        zIndex: 1,
       },
     })
   );
@@ -44,26 +45,29 @@ function Start() {
   }, [triggerFetch]);
 
   return (
-    <div className={classes.root}>
-      <Header userIsLoggedIn={loggedInContext.authenticated} />
-      {frames.map((frame) => (
-        <ImageCard
-          frame={frame}
-          key={frame._id}
-          triggerFetch={() => setTriggerFetch(false)}
-        />
-      ))}
-      <Button
-        variant="contained"
-        color="primary"
-        className={classes.addImage}
-        component={Link}
-        to="/upload"
-      >
-        Add image
-      </Button>
-      <Footer userIsLoggedIn={loggedInContext.authenticated} />
-    </div>
+    <Section>
+      <div className={classes.root}>
+        {frames.map((frame) => (
+          <ImageCard
+            frame={frame}
+            key={frame._id}
+            triggerFetch={() => setTriggerFetch(false)}
+          />
+        ))}
+        {loggedInContext.authenticated ? (
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.addImage}
+            component={Link}
+            to="/upload"
+          >
+            Add image
+          </Button>
+        ) : null}
+      </div>
+      <Footer />
+    </Section>
   );
 }
 
