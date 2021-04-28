@@ -56,6 +56,7 @@ function ImageCard(props: Props) {
       },
       showOnEdit: {
         display: editable ? "block" : "none",
+        marginTop: "1rem",
       },
       hideOnEdit: {
         display: editable ? "none" : "block",
@@ -150,7 +151,7 @@ function ImageCard(props: Props) {
           Delete
         </Button>
       </Box>
-      <CardMedia className={classes.media} image={image} title="Paella dish" />
+      <CardMedia className={classes.media} image={image} title={title} />
       <CardContent>
         <Typography
           className={classes.hideOnEdit}

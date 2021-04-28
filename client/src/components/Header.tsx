@@ -47,7 +47,9 @@ function Header() {
       .then((res) => res.json())
       .then((result) => {
         console.log(result);
-        history.replace("/upload");
+        loggedInContext.authenticateUser();
+        console.log(loggedInContext.user);
+        history.replace("/");
       });
   };
 

@@ -42,7 +42,6 @@ function UserCard(props: Props) {
     e: ChangeEvent<{ name?: string | undefined; value: unknown }>
   ) => {
     setRole(e.target.value);
-    console.log(e.target.value);
   };
 
   const handleDeleteUserClick = (id: string) => {
@@ -67,7 +66,6 @@ function UserCard(props: Props) {
       props.triggerFetch();
     });
   };
-  console.log(props.role);
 
   return (
     <Box>

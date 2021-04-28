@@ -26,7 +26,6 @@ const LoggedInProvider: FC<{}> = ({ children }) => {
         if (result) {
           setAuthenticated(result.authenticated);
           setUser(result.user);
-          console.log(user);
         }
       });
   };
@@ -35,8 +34,6 @@ const LoggedInProvider: FC<{}> = ({ children }) => {
     authenticateUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  console.log(user);
 
   return (
     <LoggedInContext.Provider

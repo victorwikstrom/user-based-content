@@ -17,14 +17,13 @@ function Login() {
     createStyles({
       root: {},
       form: {
-        width: "400px",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
         textAlign: "center",
         marginTop: "4rem",
       },
-      spacing: { margin: "2rem" },
+      spacing: { margin: "1rem" },
     })
   );
   const classes = useStyles();
@@ -119,6 +118,9 @@ function Login() {
               fullWidth
             />
           </Box>
+          {hasErr ? (
+            <Typography color="error">Wrong username or password</Typography>
+          ) : null}
           <Box className={classes.spacing}>
             <Button
               variant="contained"
@@ -128,17 +130,18 @@ function Login() {
             >
               Sign In
             </Button>
-            {hasErr ? (
-              <Typography>Wrong username or password</Typography>
-            ) : null}
           </Box>
-          <Box>
-            <Typography>
-              Not a member?{" "}
-              <Button component={Link} to="/registration">
-                Sign Up
-              </Button>
-            </Typography>
+          <Box
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Typography>Not a member?</Typography>
+            <Button component={Link} to="/registration">
+              Sign Up
+            </Button>
           </Box>
         </form>
       </Box>
