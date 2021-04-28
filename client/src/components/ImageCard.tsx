@@ -10,7 +10,8 @@ import { red } from "@material-ui/core/colors";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { Frame } from "../helpers";
 import { Box, Button, TextField } from "@material-ui/core";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useContext, useState } from "react";
+import { LoggedInContext } from "../context/LoggedInContext";
 
 interface Props {
   frame: Frame;
@@ -20,6 +21,8 @@ interface Props {
 function ImageCard(props: Props) {
   const [showButtons, setShowButtons] = useState(false);
   const [editable, setEditable] = useState(false);
+
+  const loggedInContext = useContext(LoggedInContext);
 
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -61,6 +64,8 @@ function ImageCard(props: Props) {
   );
   const classes = useStyles();
 
+  const { _id, title, description, author, date, image } = props.frame;
+
   const toggleShowButtons = () => {
     setShowButtons(!showButtons);
   };
@@ -71,8 +76,8 @@ function ImageCard(props: Props) {
   };
 
   const [editedFrame, setEditedFrame] = useState({
-    title: "",
-    description: "",
+    title: title,
+    description: description,
   });
 
   const handleEditFrameChange = (
@@ -107,8 +112,6 @@ function ImageCard(props: Props) {
     });
   };
 
-  const { _id, title, description, author, date, image } = props.frame;
-
   return (
     <Card className={classes.root}>
       <CardHeader
@@ -118,9 +121,13 @@ function ImageCard(props: Props) {
           </Avatar>
         }
         action={
-          <IconButton onClick={toggleShowButtons} aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
+          loggedInContext.user ? (
+            loggedInContext.user.username === author ? (
+              <IconButton onClick={toggleShowButtons} aria-label="settings">
+                <MoreVertIcon />
+              </IconButton>
+            ) : null
+          ) : null
         }
         title={
           editable ? (
@@ -128,7 +135,7 @@ function ImageCard(props: Props) {
               onChange={handleEditFrameChange}
               className={classes.showOnEdit}
               name="title"
-              defaultValue={title}
+              value={editedFrame.title}
             />
           ) : (
             title
@@ -159,7 +166,7 @@ function ImageCard(props: Props) {
           onChange={handleEditFrameChange}
           className={classes.showOnEdit}
           name="description"
-          defaultValue={description}
+          value={editedFrame.description}
           multiline
         />
         <Button
