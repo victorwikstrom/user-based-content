@@ -32,7 +32,6 @@ function Registration() {
     createStyles({
       root: {},
       form: {
-        width: "400px",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
@@ -92,11 +91,9 @@ function Registration() {
         // Validate username double in backend
         if (result.status === 500) {
           setHasErr({ ...hasErr, username: true });
-          return;
+        } else {
+          history.push("/login");
         }
-      })
-      .then(() => {
-        history.push("/");
       });
   };
 
@@ -143,6 +140,14 @@ function Registration() {
                 fullWidth
               />
             </Box>
+            {hasErr.username ? (
+              <Typography color="error">Username is already taken</Typography>
+            ) : null}
+            {hasErr.password ? (
+              <Typography color="error">
+                Password don't match, please try again
+              </Typography>
+            ) : null}
             <Box className={classes.spacing}>
               <Button
                 variant="contained"
@@ -152,16 +157,16 @@ function Registration() {
               >
                 Complete registration
               </Button>
-              {hasErr.username ? (
-                <Typography>Username is already taken</Typography>
-              ) : null}
-              {hasErr.password ? (
-                <Typography>Password don't match, please try again</Typography>
-              ) : null}
             </Box>
             <Box>
-              <Box>
-                Already a member?{" "}
+              <Box
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Typography>Already a member?</Typography>
                 <Button component={Link} to="/login">
                   Sign In
                 </Button>

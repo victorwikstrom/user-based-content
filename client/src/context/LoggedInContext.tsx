@@ -35,8 +35,6 @@ const LoggedInProvider: FC<{}> = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(user);
-
   return (
     <LoggedInContext.Provider
       value={{

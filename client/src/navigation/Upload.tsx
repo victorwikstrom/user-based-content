@@ -7,7 +7,7 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import PageHeading from "../components/PageHeading";
 import Section from "../components/Section";
 
@@ -37,6 +37,7 @@ function Upload() {
   });
   const [hasErr, setHasErr] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [missingImage, setMissingImage] = useState(false);
 
   const history = useHistory();
 
@@ -67,7 +68,10 @@ function Upload() {
   };
 
   const handleCreateFrameClick = () => {
-    console.log(frame);
+    if (!frame.image) {
+      setMissingImage(true);
+      return;
+    }
     fetch("/api/frames", {
       method: "POST",
       credentials: "include",
@@ -78,9 +82,9 @@ function Upload() {
     })
       .then((res) => res.json())
       .then((result: { message: string; status: number }) => {
+        history.replace("/");
         if (result.status === 500) {
           setHasErr(true);
-          console.log(result);
           return;
         }
       });
@@ -128,14 +132,17 @@ function Upload() {
               fullWidth
             />
           </Box>
+          {missingImage ? (
+            <Typography color="error">
+              You need to choose an image to create a frame
+            </Typography>
+          ) : null}
           <Box className={classes.spacing}>
             <Button
               variant="contained"
               color="primary"
               fullWidth
               onClick={handleCreateFrameClick}
-              component={Link}
-              to="/"
             >
               Upload new frame
             </Button>
