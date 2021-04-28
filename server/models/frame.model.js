@@ -4,6 +4,7 @@ const frameSchema = new mongoose.Schema({
   title: "String",
   description: "String",
   author: "String",
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
   date: "String",
   image: "String",
 });

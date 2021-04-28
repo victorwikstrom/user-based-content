@@ -47,7 +47,7 @@ function Header() {
       .then((res) => res.json())
       .then((result) => {
         console.log(result);
-        history.push("/");
+        history.replace("/upload");
       });
   };
 
