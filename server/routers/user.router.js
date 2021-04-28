@@ -75,6 +75,16 @@ userRouter.get("/api/users/:id", async (req, res) => {
   res.status(200).json(user);
 });
 
+//LOG OUT
+userRouter.delete("/api/users/logout", (req, res) => {
+  if (!req.session.user) {
+    res.status(400).json("You're already logged out");
+    return;
+  }
+  req.session = null;
+  res.status(200).json("You're logged out!");
+});
+
 // FIND BY ID AND DELETE
 userRouter.delete("/api/users/:id", async (req, res) => {
   const user = await UserModel.findByIdAndDelete(req.params.id);
@@ -99,7 +109,7 @@ userRouter.put("/api/users/:id", async (req, res) => {
 userRouter.post("/api/users/login", async (req, res) => {
   const { username, password } = req.body;
 
-  const users = await UserModel.find({});
+  const users = await UserModel.find({}).select("+password");
 
   const user = users.find((user) => user.username === username);
 
@@ -107,24 +117,13 @@ userRouter.post("/api/users/login", async (req, res) => {
     res.status(404).json({
       status: res.statusCode,
       message: "Wrong username or password",
-      full: res,
     });
     return;
   }
 
   req.session.user = user;
 
-  res.status(200).json(user);
-});
-
-//LOG OUT
-userRouter.delete("/api/users/logout", (req, res) => {
-  if (!req.session.user) {
-    res.status(400).json("You're already logged out");
-    return;
-  }
-  req.session = null;
-  res.status(200).json("You're logged out!");
+  res.status(201).json(user);
 });
 
 export default userRouter;

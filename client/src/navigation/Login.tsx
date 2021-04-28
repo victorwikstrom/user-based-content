@@ -79,16 +79,16 @@ function Login() {
     })
       .then((res) => res.json())
       .then((result: { message: string; status: number }) => {
-        if (result.status === 500) {
+        if (result.status === 404) {
           setHasErr(true);
           return;
+        } else {
+          history.push("/");
+          loggedInContext.authenticateUser();
         }
-      })
-      .then(() => {
-        history.push("/");
-        loggedInContext.authenticateUser();
       });
   };
+
   if (loading) return <div>loading</div>;
   return (
     <Section>

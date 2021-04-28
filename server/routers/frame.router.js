@@ -5,7 +5,7 @@ const frameRouter = express.Router();
 
 // FIND ALL
 frameRouter.get("/api/frames", async (req, res) => {
-  const frames = await FrameModel.find({});
+  const frames = await FrameModel.find({}).populate("user");
   res.status(200).json(frames);
 });
 
@@ -29,6 +29,7 @@ frameRouter.post("/api/frames", async (req, res) => {
   const frame = await FrameModel.create({
     ...req.body,
     author: req.session.user.username,
+    user: req.session.user._id,
     date: new Date().toDateString(),
   });
   res.status(200).json(frame);
