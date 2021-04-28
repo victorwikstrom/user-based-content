@@ -1,0 +1,90 @@
+
+
+// KÖR ALLA DESS I FÖLJD FÖR ATT SKAPA ETT PAR ANVÄNDARE OCH ETT PAR FRAMES
+
+POST http://localhost:4000/api/users/register
+Content-Type: application/json
+
+{
+    "username": "David",
+    "password": "123",
+    "role": "admin"
+}
+
+###
+
+POST http://localhost:4000/api/users/register
+Content-Type: application/json
+
+{
+    "username": "Oscar",
+    "password": "abc"
+}
+
+###
+
+POST http://localhost:4000/api/users/register
+Content-Type: application/json
+
+{
+    "username": "Herman",
+    "password": "cde"
+}
+
+###
+
+POST http://localhost:4000/api/users/register
+Content-Type: application/json
+
+{
+    "username": "Victor",
+    "password": "fgh"
+}
+
+### 
+
+POST http://localhost:4000/api/users/login
+Content-Type: application/json
+
+{
+    "username": "David",
+    "password": "123"
+}
+
+###
+
+POST http://localhost:4000/api/frames
+Content-Type: application/json
+
+{
+    "title": "A nice cat",
+    "description": "A soft kitty",
+    "image": "https://images.unsplash.com/photo-1511044568932-338cba0ad803"
+}
+
+###
+
+DELETE http://localhost:4000/api/users/logout
+
+###
+
+POST http://localhost:4000/api/users/login
+Content-Type: application/json
+
+{
+    "username": "Oscar",
+    "password": "abc"
+}
+
+###
+
+POST http://localhost:4000/api/frames
+Content-Type: application/json
+
+{
+    "title": "Another nice cat",
+    "description": "A little ball of fur",
+    "image": "https://images.unsplash.com/photo-1569591159212-b02ea8a9f239"
+}
+
+// NU ÄR DU REDO ATT TESTA I GRÄNSSNITTET
