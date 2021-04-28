@@ -10,6 +10,8 @@ const Section: React.FC<Props> = ({ children }) => {
     createStyles({
       root: {
         padding: "5px 10px",
+        display: "flex",
+        flexDirection: "column",
       },
     })
   );

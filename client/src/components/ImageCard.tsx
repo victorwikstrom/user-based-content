@@ -46,7 +46,7 @@ function ImageCard(props: Props) {
         transform: "rotate(180deg)",
       },
       avatar: {
-        backgroundColor: red[500],
+        backgroundColor: "#8C52FF",
       },
       actionButtons: {
         position: "absolute",

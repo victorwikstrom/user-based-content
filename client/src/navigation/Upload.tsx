@@ -23,7 +23,7 @@ function Upload() {
         textAlign: "center",
         marginTop: "4rem",
       },
-      spacing: { margin: "2rem" },
+      spacing: { margin: "1rem" },
     })
   );
   const classes = useStyles();

@@ -1,5 +1,6 @@
 import { createStyles, makeStyles } from "@material-ui/core";
 import React from "react";
+import phone from "../assets/phone.png";
 
 type Props = {
   children: React.ReactNode;
@@ -14,17 +15,27 @@ const Container: React.FC<Props> = ({ children }) => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        bcakground: "transparent",
       },
       container: {
+        marginTop: "-20px",
+        padding: "1rem 0",
         position: "relative",
         backgroundColor: "#f4f4f4",
-        border: "2px solid black",
-        maxWidth: "400px",
-        width: "60vw",
+        maxWidth: "430px",
+        width: "65vw",
         overflowX: "auto",
-        maxHeight: "800px",
-        height: "95vh",
-        borderRadius: "5px",
+        maxHeight: "840px",
+        height: "75vh",
+        borderRadius: "20px",
+      },
+      phone: {
+        maxWidth: "530px",
+        maxHeight: "950px",
+        width: "75vw",
+        height: "100vh",
+        position: "absolute",
+        zIndex: -1,
       },
     })
   );
@@ -32,6 +43,7 @@ const Container: React.FC<Props> = ({ children }) => {
 
   return (
     <div className={classes.root}>
+      <img className={classes.phone} src={phone} alt="phone-background" />
       <div className={classes.container}>{children}</div>
     </div>
   );
