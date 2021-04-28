@@ -1,4 +1,4 @@
-import { createStyles, makeStyles, Typography } from "@material-ui/core";
+import { Box, createStyles, makeStyles, Typography } from "@material-ui/core";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { LoggedInContext } from "../context/LoggedInContext";
@@ -23,14 +23,16 @@ function Footer() {
     <footer className={classes.root}>
       {loggedInContext.authenticated ? (
         <div>
-          <Typography>
-            <Link
-              style={{ textDecoration: "none", color: "black" }}
-              to="/admin"
-            >
-              Admin
-            </Link>
-          </Typography>
+          {loggedInContext.user?.role === "admin" ? (
+            <Typography>
+              <Link
+                style={{ textDecoration: "none", color: "black" }}
+                to="/admin"
+              >
+                Admin
+              </Link>
+            </Typography>
+          ) : null}
         </div>
       ) : null}
     </footer>
