@@ -27,6 +27,10 @@ function Header() {
         alignItems: "flex-end",
         flexDirection: "column",
       },
+      left: {
+        display: "flex",
+        flexDirection: "column",
+      },
     })
   );
   const classes = useStyles();
@@ -50,18 +54,35 @@ function Header() {
   return (
     <Section>
       <div className={classes.root}>
-        <Typography component="h1" variant="h6">
-          <Link style={{ textDecoration: "none", color: "black" }} to="/">
-            Instaframe
-          </Link>
-        </Typography>
+        <Box className={classes.left}>
+          <Typography component="h1" variant="h6">
+            <Link style={{ textDecoration: "none", color: "black" }} to="/">
+              Instaframe
+            </Link>
+          </Typography>
+          <div>
+            {loggedInContext.user?.role === "admin" ? (
+              <Typography>
+                <Link style={{ color: "black" }} to="/admin">
+                  Go to admin
+                </Link>
+              </Typography>
+            ) : null}
+          </div>
+        </Box>
         <Box className={classes.right}>
           {loggedInContext.authenticated ? (
             <Box className={classes.right}>
-              <Typography>
+              <Typography style={{ marginBottom: "0.5rem" }}>
                 Logged in as {loggedInContext.user?.username}
               </Typography>
-              <Button onClick={handleLogOutClick}>Log out</Button>
+              <Button
+                size="small"
+                variant="contained"
+                onClick={handleLogOutClick}
+              >
+                Log out
+              </Button>
             </Box>
           ) : (
             <HeaderLogin />

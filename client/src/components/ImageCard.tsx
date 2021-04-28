@@ -121,12 +121,11 @@ function ImageCard(props: Props) {
           </Avatar>
         }
         action={
-          loggedInContext.user ? (
-            loggedInContext.user.username === author ? (
-              <IconButton onClick={toggleShowButtons} aria-label="settings">
-                <MoreVertIcon />
-              </IconButton>
-            ) : null
+          loggedInContext.user?.username === author ||
+          loggedInContext.user?.role === "admin" ? (
+            <IconButton onClick={toggleShowButtons} aria-label="settings">
+              <MoreVertIcon />
+            </IconButton>
           ) : null
         }
         title={

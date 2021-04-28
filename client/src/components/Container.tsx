@@ -9,7 +9,6 @@ const Container: React.FC<Props> = ({ children }) => {
   const useStyles = makeStyles(() =>
     createStyles({
       root: {
-        position: "relative",
         width: "100%",
         height: "100vh",
         display: "flex",
@@ -17,6 +16,7 @@ const Container: React.FC<Props> = ({ children }) => {
         alignItems: "center",
       },
       container: {
+        position: "relative",
         backgroundColor: "#f4f4f4",
         border: "2px solid black",
         maxWidth: "400px",

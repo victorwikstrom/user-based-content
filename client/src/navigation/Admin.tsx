@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Box, createStyles, makeStyles } from "@material-ui/core";
 import UserCard from "../components/UserCard";
 import { User } from "../helpers";
-import Header from "../components/Header";
 import PageHeading from "../components/PageHeading";
 import Section from "../components/Section";
 import { useHistory } from "react-router";
@@ -60,7 +59,6 @@ function Admin() {
   return (
     <Section>
       <Box className={classes.root}>
-        <Header />
         <PageHeading pageName="All users" />
         {users.map(({ username, role, _id }) => (
           <UserCard

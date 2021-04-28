@@ -5,17 +5,14 @@ import { Frame } from "../helpers";
 import { Link } from "react-router-dom";
 import Section from "../components/Section";
 import { LoggedInContext } from "../context/LoggedInContext";
-import Footer from "../components/Footer";
 
 function Start() {
   const useStyles = makeStyles(() =>
     createStyles({
-      root: {},
+      root: { position: "relative" },
       addImage: {
-        position: "fixed",
-        bottom: "10%",
-        right: "41%",
-        zIndex: 1,
+        float: "right",
+        marginBottom: "2rem",
       },
     })
   );
@@ -45,29 +42,30 @@ function Start() {
   }, [triggerFetch]);
 
   return (
-    <Section>
+    <>
       <div className={classes.root}>
-        {frames.map((frame) => (
-          <ImageCard
-            frame={frame}
-            key={frame._id}
-            triggerFetch={() => setTriggerFetch(false)}
-          />
-        ))}
-        {loggedInContext.authenticated ? (
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.addImage}
-            component={Link}
-            to="/upload"
-          >
-            Add image
-          </Button>
-        ) : null}
+        <Section>
+          {loggedInContext.authenticated ? (
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.addImage}
+              component={Link}
+              to="/upload"
+            >
+              Add image
+            </Button>
+          ) : null}
+          {frames.map((frame) => (
+            <ImageCard
+              frame={frame}
+              key={frame._id}
+              triggerFetch={() => setTriggerFetch(false)}
+            />
+          ))}
+        </Section>
       </div>
-      <Footer />
-    </Section>
+    </>
   );
 }
 
