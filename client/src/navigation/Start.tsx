@@ -14,6 +14,10 @@ function Start() {
         float: "right",
         marginBottom: "2rem",
       },
+      reverse: {
+        display: "flex",
+        flexDirection: "column-reverse",
+      },
     })
   );
   const classes = useStyles();
@@ -53,16 +57,18 @@ function Start() {
               component={Link}
               to="/upload"
             >
-              Add image
+              Post new frame
             </Button>
           ) : null}
-          {frames.map((frame) => (
-            <ImageCard
-              frame={frame}
-              key={frame._id}
-              triggerFetch={() => setTriggerFetch(false)}
-            />
-          ))}
+          <div className={classes.reverse}>
+            {frames.map((frame) => (
+              <ImageCard
+                frame={frame}
+                key={frame._id}
+                triggerFetch={() => setTriggerFetch(false)}
+              />
+            ))}
+          </div>
         </Section>
       </div>
     </>

@@ -19,18 +19,32 @@ function HeaderLogin() {
         display: "flex",
         alignItems: "center",
       },
+      right: {
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "flex-end",
+      },
     })
   );
   const classes = useStyles();
   return (
-    <Box>
+    <Box className={classes.right}>
       <Box className={classes.loginContainer}>
-        <Button component={Link} to="/login">
+        <Button
+          style={{ marginRight: "10px" }}
+          variant="contained"
+          component={Link}
+          to="/login"
+        >
           Log in
         </Button>
         <Typography>or</Typography>
       </Box>
-      <Button component={Link} to="/registration">
+      <Button
+        style={{ background: "transparent", textDecoration: "underline" }}
+        component={Link}
+        to="/registration"
+      >
         Register
       </Button>
     </Box>

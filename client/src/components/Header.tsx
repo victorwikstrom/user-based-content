@@ -10,6 +10,7 @@ import { useContext } from "react";
 import { LoggedInContext } from "../context/LoggedInContext";
 import { Link, useHistory } from "react-router-dom";
 import Section from "./Section";
+import logo from "../assets/instaframe.png";
 
 function Header() {
   const useStyles = makeStyles(() =>
@@ -21,6 +22,7 @@ function Header() {
         justifyContent: "space-between",
         alignItems: "center",
         borderBottom: "1px solid #f4f4f4",
+        marginBottom: "1rem",
       },
       right: {
         display: "flex",
@@ -30,6 +32,9 @@ function Header() {
       left: {
         display: "flex",
         flexDirection: "column",
+      },
+      logo: {
+        height: "100px",
       },
     })
   );
@@ -59,14 +64,14 @@ function Header() {
         <Box className={classes.left}>
           <Typography component="h1" variant="h6">
             <Link style={{ textDecoration: "none", color: "black" }} to="/">
-              Instaframe
+              <img className={classes.logo} src={logo} alt="instaframe" />
             </Link>
           </Typography>
           <div>
             {loggedInContext.user?.role === "admin" ? (
               <Typography>
                 <Link style={{ color: "black" }} to="/admin">
-                  Go to admin
+                  Go to admin page
                 </Link>
               </Typography>
             ) : null}

@@ -10,6 +10,7 @@ import {
   Select,
   Typography,
   MenuItem,
+  useTheme,
 } from "@material-ui/core";
 
 interface Props {
@@ -25,8 +26,7 @@ function UserCard(props: Props) {
       root: {
         display: "flex",
         justifyContent: "space-between",
-        alignItems: "center",
-        height: "8rem",
+        margin: "2rem 0",
       },
       buttonWrapper: {
         display: "flex",
@@ -37,11 +37,13 @@ function UserCard(props: Props) {
   const classes = useStyles();
 
   const [role, setRole] = useState<string | undefined | unknown>(props.role);
+  const [roleHasChanged, setRoleHasChanged] = useState(false);
 
   const handleRoleChange = (
     e: ChangeEvent<{ name?: string | undefined; value: unknown }>
   ) => {
     setRole(e.target.value);
+    setRoleHasChanged(true);
   };
 
   const handleDeleteUserClick = (id: string) => {
@@ -64,14 +66,19 @@ function UserCard(props: Props) {
       body: JSON.stringify({ role: newRole }),
     }).then(() => {
       props.triggerFetch();
+      setRoleHasChanged(false);
     });
   };
+
+  const theme = useTheme();
 
   return (
     <Box>
       <Box className={classes.root}>
         <Box>
-          <Typography>{props.user}</Typography>
+          <Typography style={{ marginBottom: "10px" }} variant="h6">
+            {props.user}
+          </Typography>
           <FormControl>
             <InputLabel>Role</InputLabel>
             <Select value={role} onChange={handleRoleChange}>
@@ -83,16 +90,21 @@ function UserCard(props: Props) {
         <Box className={classes.buttonWrapper}>
           <Button
             color="primary"
+            size="small"
             onClick={() => handleDeleteUserClick(props.id)}
           >
             Delete User
           </Button>
-          <Button
-            onClick={() => handleUpdateUserRoleClick(props.id, role)}
-            color="secondary"
-          >
-            Save User
-          </Button>
+          {roleHasChanged ? (
+            <Button
+              onClick={() => handleUpdateUserRoleClick(props.id, role)}
+              variant="contained"
+              color="primary"
+              size="small"
+            >
+              Save Changes
+            </Button>
+          ) : null}
         </Box>
       </Box>
       <Divider color="primary" />
