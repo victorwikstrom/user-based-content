@@ -26,7 +26,6 @@ const LoggedInProvider: FC<{}> = ({ children }) => {
         if (result) {
           setAuthenticated(result.authenticated);
           setUser(result.user);
-          console.log(user);
         }
       });
   };
