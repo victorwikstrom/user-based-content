@@ -8,7 +8,7 @@ function Footer() {
     createStyles({
       root: {
         backgroundColor: "#333",
-        position: "absolute",
+        position: "relative",
         bottom: "0",
         height: "100px",
         width: "100%",

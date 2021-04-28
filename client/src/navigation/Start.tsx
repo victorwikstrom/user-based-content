@@ -5,6 +5,7 @@ import { Frame } from "../helpers";
 import { Link } from "react-router-dom";
 import Section from "../components/Section";
 import { LoggedInContext } from "../context/LoggedInContext";
+import Footer from "../components/Footer";
 
 function Start() {
   const useStyles = makeStyles(() =>
@@ -14,6 +15,7 @@ function Start() {
         position: "fixed",
         bottom: "10%",
         right: "41%",
+        zIndex: 1,
       },
     })
   );
@@ -64,6 +66,7 @@ function Start() {
           </Button>
         ) : null}
       </div>
+      <Footer />
     </Section>
   );
 }
