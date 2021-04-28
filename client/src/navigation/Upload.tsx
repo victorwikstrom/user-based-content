@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import {
   Box,
   Button,
@@ -7,7 +7,7 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import PageHeading from "../components/PageHeading";
 import Section from "../components/Section";
 
@@ -36,24 +36,6 @@ function Upload() {
     image: "",
   });
   const [hasErr, setHasErr] = useState(false);
-
-  const [loading, setLoading] = useState(true);
-  const history = useHistory();
-
-  useEffect(() => {
-    fetch("/api/users/authenticate", {
-      method: "GET",
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        if (!result.authenticated) {
-          history.replace("/");
-        } else {
-          setLoading(false);
-        }
-      });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const handleInputChange = (
     e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
@@ -86,7 +68,6 @@ function Upload() {
       });
   };
 
-  if (loading) return <div>loading</div>;
   return (
     <Section>
       <Box className={classes.root}>

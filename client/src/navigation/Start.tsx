@@ -1,9 +1,10 @@
 import { Button, createStyles, makeStyles } from "@material-ui/core";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ImageCard from "../components/ImageCard";
 import { Frame } from "../helpers";
 import { Link } from "react-router-dom";
 import Section from "../components/Section";
+import { LoggedInContext } from "../context/LoggedInContext";
 
 function Start() {
   const useStyles = makeStyles(() =>
@@ -17,6 +18,8 @@ function Start() {
     })
   );
   const classes = useStyles();
+
+  const loggedInContext = useContext(LoggedInContext);
 
   const [triggerFetch, setTriggerFetch] = useState(false);
   const [frames, setFrames] = useState<Frame[]>([]);
@@ -49,15 +52,17 @@ function Start() {
             triggerFetch={() => setTriggerFetch(false)}
           />
         ))}
-        <Button
-          variant="contained"
-          color="primary"
-          className={classes.addImage}
-          component={Link}
-          to="/upload"
-        >
-          Add image
-        </Button>
+        {loggedInContext.authenticated ? (
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.addImage}
+            component={Link}
+            to="/upload"
+          >
+            Add image
+          </Button>
+        ) : null}
       </div>
     </Section>
   );
