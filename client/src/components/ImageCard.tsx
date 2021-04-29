@@ -12,6 +12,7 @@ import { Frame } from "../helpers";
 import { Box, Button, TextField } from "@material-ui/core";
 import { ChangeEvent, useContext, useState } from "react";
 import { LoggedInContext } from "../context/LoggedInContext";
+import userEvent from "@testing-library/user-event";
 
 interface Props {
   frame: Frame;
@@ -130,16 +131,27 @@ function ImageCard(props: Props) {
           ) : null
         }
         title={
-          editable ? (
-            <TextField
-              onChange={handleEditFrameChange}
-              className={classes.showOnEdit}
-              name="title"
-              value={editedFrame.title}
-            />
-          ) : (
-            title
-          )
+          <div>
+            <Typography
+              variant="body2"
+              color="primary"
+              style={{ fontWeight: "bold" }}
+            >
+              {author}
+            </Typography>
+            {editable ? (
+              <TextField
+                onChange={handleEditFrameChange}
+                className={classes.showOnEdit}
+                name="title"
+                value={editedFrame.title}
+              />
+            ) : (
+              <Typography variant="body1" style={{ fontWeight: "bold" }}>
+                {title}
+              </Typography>
+            )}
+          </div>
         }
         subheader={date}
       />
