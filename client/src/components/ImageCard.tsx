@@ -13,6 +13,7 @@ import { Box, Button, TextField } from "@material-ui/core";
 import { ChangeEvent, useContext, useState } from "react";
 import { LoggedInContext } from "../context/LoggedInContext";
 import userEvent from "@testing-library/user-event";
+import { Link } from "react-router-dom";
 
 interface Props {
   frame: Frame;
