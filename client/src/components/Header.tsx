@@ -8,7 +8,7 @@ import {
 import HeaderLogin from "./HeaderLogin";
 import { useContext } from "react";
 import { LoggedInContext } from "../context/LoggedInContext";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import Section from "./Section";
 import logo from "../assets/instaframe.png";
 
@@ -41,6 +41,7 @@ function Header() {
   const classes = useStyles();
 
   const history = useHistory();
+  const location = useLocation();
   const loggedInContext = useContext(LoggedInContext);
 
   const handleLogOutClick = () => {
@@ -70,8 +71,13 @@ function Header() {
           <div>
             {loggedInContext.user?.role === "admin" ? (
               <Typography>
-                <Link style={{ color: "black" }} to="/admin">
-                  Go to admin page
+                <Link
+                  style={{ color: "black" }}
+                  to={location.pathname === "/admin" ? "/" : "/admin"}
+                >
+                  {location.pathname === "/admin"
+                    ? "Go back to home page"
+                    : "Go to admin page"}
                 </Link>
               </Typography>
             ) : null}
