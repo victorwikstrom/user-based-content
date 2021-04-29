@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Header from "../components/Header";
 import Admin from "./Admin";
 import Login from "./Login";
-import MyFeed from "./MyFeed";
+import PersonalFeed from "./PersonalFeed";
 import Registration from "./Registration";
 import Start from "./Start";
 import Upload from "./Upload";
@@ -17,7 +17,7 @@ function Router() {
         <Route path="/registration" component={Registration} />
         <Route path="/admin" component={Admin} />
         <Route path="/upload" component={Upload} />
-        <Route path="/myfeed" component={MyFeed} />
+        <Route path="/:id" component={PersonalFeed} />
       </Switch>
     </BrowserRouter>
   );

@@ -6,13 +6,17 @@ import {
   Typography,
 } from "@material-ui/core";
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useRouteMatch } from "react-router-dom";
 import ImageCard from "../components/ImageCard";
 import Section from "../components/Section";
 import { LoggedInContext } from "../context/LoggedInContext";
-import { Frame } from "../helpers";
+import { Frame, User } from "../helpers";
 
-function MyFeed() {
+interface Params {
+  id: string;
+}
+
+function PersonalFeed() {
   const useStyles = makeStyles(() =>
     createStyles({
       root: { position: "relative" },
@@ -29,22 +33,35 @@ function MyFeed() {
   const classes = useStyles();
 
   const loggedInContext = useContext(LoggedInContext);
-  console.log(loggedInContext.user?._id);
 
   const [triggerFetch, setTriggerFetch] = useState(false);
   const [frames, setFrames] = useState<Frame[]>([]);
+  const [user, setUser] = useState<User | undefined>(undefined);
+  const match = useRouteMatch<Params>();
 
   useEffect(() => {
-    fetch(`/api/frames/`, {
+    fetch(`/api/users/`, {
       method: "GET",
     })
       .then((res) => res.json())
       .then((result) => {
-        const myFrames = result.filter(
-          (frame: Frame) => frame.user._id === loggedInContext.user?._id
+        const user: User | undefined = result.find(
+          (u: User) => u._id === match.params.id
         );
-        setFrames(myFrames);
-        setTriggerFetch(true);
+        setUser(user);
+      })
+      .then(() => {
+        fetch(`/api/frames/`, {
+          method: "GET",
+        })
+          .then((res) => res.json())
+          .then((result) => {
+            const myFrames = result.filter(
+              (frame: Frame) => frame.user._id === user?._id
+            );
+            setFrames(myFrames);
+            setTriggerFetch(true);
+          });
       });
   }, [triggerFetch]);
 
@@ -52,7 +69,8 @@ function MyFeed() {
     <>
       <div className={classes.root}>
         <Section>
-          {loggedInContext.authenticated ? (
+          {loggedInContext.authenticated &&
+          loggedInContext.user?._id === user?._id ? (
             <Button
               variant="contained"
               color="primary"
@@ -66,7 +84,9 @@ function MyFeed() {
           {frames.length ? (
             <Box>
               <Typography variant="h6" style={{ marginBottom: "1rem" }}>
-                My uploaded frames
+                {user?.username === loggedInContext.user?.username
+                  ? "My uploaded frames"
+                  : `${user?.username}'s uploaded frames`}
               </Typography>
               <div className={classes.reverse}>
                 {frames.map((frame) => (
@@ -89,4 +109,4 @@ function MyFeed() {
   );
 }
 
-export default MyFeed;
+export default PersonalFeed;

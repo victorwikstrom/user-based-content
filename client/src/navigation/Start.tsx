@@ -30,19 +30,10 @@ function Start() {
   useEffect(() => {
     fetch("/api/frames")
       .then((res) => res.json())
-      .then(
-        (result) => {
-          setFrames(result);
-          setTriggerFetch(true);
-        }
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
-        // (error) => {
-        //   setIsLoaded(true);
-        //   setError(error);
-        // }
-      );
+      .then((result) => {
+        setFrames(result);
+        setTriggerFetch(true);
+      });
   }, [triggerFetch]);
 
   return (

@@ -89,7 +89,9 @@ function Header() {
               <Box style={{ display: "flex" }}>
                 <Typography style={{ marginBottom: "0.5rem" }}>
                   Logged in as{" "}
-                  <Link to="/myfeed">{loggedInContext.user?.username}</Link>
+                  <Link to={`/${loggedInContext.user?._id}`}>
+                    {loggedInContext.user?.username}
+                  </Link>
                 </Typography>
               </Box>
               <Button
