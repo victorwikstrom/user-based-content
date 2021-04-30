@@ -86,9 +86,14 @@ function Header() {
         <Box className={classes.right}>
           {loggedInContext.authenticated ? (
             <Box className={classes.right}>
-              <Typography style={{ marginBottom: "0.5rem" }}>
-                Logged in as {loggedInContext.user?.username}
-              </Typography>
+              <Box style={{ display: "flex" }}>
+                <Typography style={{ marginBottom: "0.5rem" }}>
+                  Logged in as{" "}
+                  <Link to={`/${loggedInContext.user?._id}`}>
+                    {loggedInContext.user?.username}
+                  </Link>
+                </Typography>
+              </Box>
               <Button
                 size="small"
                 variant="contained"

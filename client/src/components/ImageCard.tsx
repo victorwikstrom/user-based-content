@@ -13,6 +13,7 @@ import { Box, Button, TextField } from "@material-ui/core";
 import { ChangeEvent, useContext, useState } from "react";
 import { LoggedInContext } from "../context/LoggedInContext";
 import userEvent from "@testing-library/user-event";
+import { Link } from "react-router-dom";
 
 interface Props {
   frame: Frame;
@@ -66,7 +67,7 @@ function ImageCard(props: Props) {
   );
   const classes = useStyles();
 
-  const { _id, title, description, author, date, image } = props.frame;
+  const { _id, title, description, author, date, image, user } = props.frame;
 
   const toggleShowButtons = () => {
     setShowButtons(!showButtons);
@@ -137,7 +138,7 @@ function ImageCard(props: Props) {
               color="primary"
               style={{ fontWeight: "bold" }}
             >
-              {author}
+              <Link to={`/${user._id}`}>{author}</Link>
             </Typography>
             {editable ? (
               <TextField
