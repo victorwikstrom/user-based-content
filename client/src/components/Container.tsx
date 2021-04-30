@@ -1,6 +1,7 @@
 import { createStyles, makeStyles } from "@material-ui/core";
 import React from "react";
 import phone from "../assets/phone.png";
+import ScrollTo from "./ScrollTo";
 
 type Props = {
   children: React.ReactNode;

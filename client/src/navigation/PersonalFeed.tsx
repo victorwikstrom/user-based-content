@@ -13,7 +13,7 @@ import { LoggedInContext } from "../context/LoggedInContext";
 import { Frame, User } from "../helpers";
 
 interface Params {
-  id: string;
+  username: string;
 }
 
 function PersonalFeed() {
@@ -46,7 +46,7 @@ function PersonalFeed() {
       .then((res) => res.json())
       .then((result) => {
         const user: User | undefined = result.find(
-          (u: User) => u._id === match.params.id
+          (u: User) => u.username === match.params.username
         );
         setUser(user);
       })
@@ -63,6 +63,7 @@ function PersonalFeed() {
             setTriggerFetch(true);
           });
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [triggerFetch]);
 
   return (
@@ -83,7 +84,7 @@ function PersonalFeed() {
           ) : null}
           {frames.length ? (
             <Box>
-              <Typography variant="h6" style={{ marginBottom: "1rem" }}>
+              <Typography variant="body1" style={{ margin: "1rem" }}>
                 {user?.username === loggedInContext.user?.username
                   ? "My uploaded frames"
                   : `${user?.username}'s uploaded frames`}

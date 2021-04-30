@@ -89,5 +89,3 @@ Content-Type: application/json
 
 // NU ÄR DU REDO ATT TESTA I GRÄNSSNITTET
 
-###
-GET http://localhost:4000/api/frames/608a6cadb6133250668980c4

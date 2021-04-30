@@ -1,4 +1,9 @@
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import {
+  makeStyles,
+  Theme,
+  createStyles,
+  useTheme,
+} from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -6,13 +11,11 @@ import CardContent from "@material-ui/core/CardContent";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import { red } from "@material-ui/core/colors";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { Frame } from "../helpers";
 import { Box, Button, TextField } from "@material-ui/core";
 import { ChangeEvent, useContext, useState } from "react";
 import { LoggedInContext } from "../context/LoggedInContext";
-import userEvent from "@testing-library/user-event";
 import { Link } from "react-router-dom";
 
 interface Props {
@@ -63,9 +66,14 @@ function ImageCard(props: Props) {
       hideOnEdit: {
         display: editable ? "none" : "block",
       },
+      link: {
+        textDecoration: "none",
+        color: theme.palette.primary.main,
+      },
     })
   );
   const classes = useStyles();
+  const theme = useTheme();
 
   const { _id, title, description, author, date, image, user } = props.frame;
 
@@ -119,9 +127,11 @@ function ImageCard(props: Props) {
     <Card className={classes.root}>
       <CardHeader
         avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            {author[0]}
-          </Avatar>
+          <Link to={`/${user.username}`} className={classes.link}>
+            <Avatar aria-label="recipe" className={classes.avatar}>
+              {author[0]}
+            </Avatar>
+          </Link>
         }
         action={
           loggedInContext.user?.username === author ||
@@ -138,7 +148,9 @@ function ImageCard(props: Props) {
               color="primary"
               style={{ fontWeight: "bold" }}
             >
-              <Link to={`/${user._id}`}>{author}</Link>
+              <Link to={`/${user.username}`} className={classes.link}>
+                {author}
+              </Link>
             </Typography>
             {editable ? (
               <TextField
