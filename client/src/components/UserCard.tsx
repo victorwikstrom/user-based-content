@@ -10,7 +10,6 @@ import {
   Select,
   Typography,
   MenuItem,
-  useTheme,
 } from "@material-ui/core";
 
 interface Props {
@@ -69,8 +68,6 @@ function UserCard(props: Props) {
       setRoleHasChanged(false);
     });
   };
-
-  const theme = useTheme();
 
   return (
     <Box>

@@ -17,7 +17,7 @@ function Router() {
         <Route path="/registration" component={Registration} />
         <Route path="/admin" component={Admin} />
         <Route path="/upload" component={Upload} />
-        <Route path="/:id" component={PersonalFeed} />
+        <Route path="/:username" component={PersonalFeed} />
       </Switch>
     </BrowserRouter>
   );
