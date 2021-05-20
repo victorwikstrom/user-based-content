@@ -42,7 +42,6 @@ frameRouter.put("/api/frames/:id", async (req, res) => {
     return;
   }
   const userIsAuthorised = await userIsAuthor(req);
-  console.log(userIsAuthorised);
   if (!userIsAuthorised) {
     res.status(403).json("You may only edit your own frames");
     return;
@@ -83,8 +82,6 @@ function userIsLoggedIn(req) {
 
 async function userIsAuthor(req) {
   const frame = await FrameModel.findById(req.params.id);
-  console.log(req.session.user._id);
-  console.log(frame.user);
   if (req.session.user._id == frame.user) {
     return true;
   } else {
