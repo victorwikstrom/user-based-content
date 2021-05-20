@@ -41,6 +41,12 @@ frameRouter.put("/api/frames/:id", async (req, res) => {
     res.status(500).json("You need to log in before you can update");
     return;
   }
+  const userIsAuthorised = await userIsAuthor(req);
+  console.log(userIsAuthorised);
+  if (!userIsAuthorised) {
+    res.status(403).json("You may only edit your own frames");
+    return;
+  }
   const frame = await FrameModel.findByIdAndUpdate(req.params.id, req.body);
   if (!frame) {
     res.status(404).json("No frame was found");
@@ -53,6 +59,11 @@ frameRouter.put("/api/frames/:id", async (req, res) => {
 frameRouter.delete("/api/frames/:id", async (req, res) => {
   if (!userIsLoggedIn(req)) {
     res.status(500).json("You need to log in before you can delete");
+    return;
+  }
+  const userIsAuthorised = await userIsAuthor(req);
+  if (!userIsAuthorised) {
+    res.status(403).json("You may only delete your own frames");
     return;
   }
   const frame = await FrameModel.findByIdAndDelete(req.params.id);
@@ -68,6 +79,17 @@ function userIsLoggedIn(req) {
     return true;
   }
   return false;
+}
+
+async function userIsAuthor(req) {
+  const frame = await FrameModel.findById(req.params.id);
+  console.log(req.session.user._id);
+  console.log(frame.user);
+  if (req.session.user._id == frame.user) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 export default frameRouter;
